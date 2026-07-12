@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-text-primary antialiased;
+    background-image:
+      radial-gradient(circle at 20% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 45%),
+      radial-gradient(circle at 85% 15%, rgba(139, 92, 246, 0.10) 0%, transparent 40%),
+      radial-gradient(circle at 50% 100%, rgba(34, 211, 238, 0.06) 0%, transparent 40%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: rgba(99, 102, 241, 0.35);
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid #22D3EE;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-strong {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #ffffff 20%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #a5b4fc 0%, #c4b5fd 50%, #67e8f9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.2em] text-accent;
+  }
+
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center rounded-full bg-gradient-primary
+      px-7 py-3.5 text-[16px] font-semibold text-white shadow-glow transition-transform duration-300
+      hover:scale-[1.03] active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-border-strong
+      bg-white/[0.03] px-7 py-3.5 text-[16px] font-semibold text-white backdrop-blur-sm
+      transition-colors duration-300 hover:bg-white/[0.08];
+  }
+
+  .card-surface {
+    @apply glass rounded-xl2 transition-all duration-300;
+  }
+
+  .section-padding {
+    @apply px-6 py-24 md:px-10 md:py-32;
+  }
+}

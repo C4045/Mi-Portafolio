@@ -1,0 +1,141 @@
+.dashboard-container {
+    padding: var(--space-3xl) 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-3xl);
+}
+
+.stat-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    transition: all var(--transition-fast);
+}
+
+[data-theme="dark"] .stat-card {
+    background: var(--color-secondary);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.stat-card__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-lg);
+    background: rgba(212, 165, 116, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.stat-card__icon svg {
+    width: 28px;
+    height: 28px;
+    stroke: var(--color-primary);
+}
+
+.stat-card__label {
+    font-size: var(--fs-sm);
+    color: var(--color-text-light);
+    margin-bottom: var(--space-xs);
+}
+
+.stat-card__value {
+    font-size: var(--fs-3xl);
+    font-weight: var(--fw-bold);
+    font-family: var(--font-display);
+    margin: 0;
+}
+
+/* Controls */
+.dashboard-controls {
+    margin-bottom: var(--space-2xl);
+}
+
+.controls-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.controls-wrapper .search-box {
+    position: relative;
+    max-width: 400px;
+}
+
+.controls-wrapper .search-icon {
+    position: absolute;
+    right: var(--space-md);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    stroke: var(--color-text-light);
+    pointer-events: none;
+}
+
+.filter-controls {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filter-controls .form-input {
+    max-width: 200px;
+}
+
+/* Reservation card in dashboard */
+.reservations-section {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] .reservations-section {
+    background: var(--color-secondary);
+}
+
+.dashboard-reservations-list {
+    margin-top: var(--space-xl);
+}
+
+.status-upcoming {
+    background: var(--color-primary);
+}
+
+.status-completed {
+    background: var(--color-text-light);
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .filter-controls {
+        flex-direction: column;
+    }
+    .filter-controls .form-input {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}

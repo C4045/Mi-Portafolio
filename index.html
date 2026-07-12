@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Celso Romero | Desarrollador Web Full-Stack — Portafolio</title>
+  <meta name="description" content="Portafolio de Celso Romero, desarrollador web full-stack en Paraguay. Sitios web, tiendas online, sistemas de reservas y paneles de administración con HTML, CSS, JavaScript, PHP, MySQL y Python.">
+  <meta name="theme-color" content="#12141c">
+
+  <meta property="og:title" content="Celso Romero | Desarrollador Web Full-Stack">
+  <meta property="og:description" content="Sitios web, tiendas online y paneles de administración funcionales, de principio a fin. Mirá los proyectos y probá las demos en vivo.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://localhost/PORTFOLIO-2/">
+  <meta property="og:locale" content="es_PY">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" href="favicon.ico">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header>
+    <div class="nav-inner">
+      <a class="logo" href="#inicio"><span class="caret">&gt;_</span> celso.dev</a>
+      <nav id="primary-nav" aria-label="Navegación principal">
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#habilidades">Habilidades</a></li>
+          <li><a href="#sobre-mi">Sobre mí</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="primary-nav">☰</button>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <!-- ===================== HERO ===================== -->
+    <section id="inicio" class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="status-badge"><span class="status-dot"></span> Disponible para nuevos proyectos</span>
+          <h1>Hola, soy <span>Celso Romero</span></h1>
+          <p class="hero-role">Desarrollador Web Full-Stack · Paraguay 🇵🇾</p>
+          <p class="lead">Diseño y desarrollo sitios web, tiendas online y paneles de administración funcionales de principio a fin — desde la interfaz hasta la base de datos.</p>
+          <div class="hero-actions">
+            <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
+            <a href="#contacto" class="btn btn-ghost">Hablemos de tu proyecto</a>
+          </div>
+          <div class="hero-stats">
+            <div><strong>8</strong><span>proyectos completos</span></div>
+            <div><strong>7+</strong><span>tecnologías</span></div>
+            <div><strong>100%</strong><span>funcionales, no mockups</span></div>
+          </div>
+        </div>
+
+        <div class="term-window">
+          <div class="term-bar">
+            <span class="term-dot red"></span><span class="term-dot yellow"></span><span class="term-dot green"></span>
+            <span class="term-title">celso@dev:~</span>
+          </div>
+          <div class="term-body">
+            <div class="term-line"><span class="term-prompt">$</span><span class="term-out">whoami</span></div>
+            <div class="term-line"><span class="term-out">&gt; Celso Romero — dev web full-stack</span></div>
+            <div class="term-line"><span class="term-prompt">$</span><span class="term-out">disponibilidad</span></div>
+            <div class="term-line"><span class="term-out">&gt; Abierto a proyectos freelance <strong>✅</strong></span></div>
+            <div class="term-line"><span class="term-prompt">$</span><span class="term-out">stack --actual</span></div>
+            <div class="term-line"><span class="term-out">&gt; <span id="typed-target"></span><span class="term-cursor"></span></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PROYECTOS ===================== -->
+    <section id="proyectos">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-eyebrow">proyectos</p>
+          <h2 class="section-title">Proyectos reales, no solo mockups</h2>
+          <p class="section-lead">Cada tarjeta tiene su código fuente en GitHub y una demo que podés abrir ahora mismo.</p>
+        </div>
+
+        <div class="proyectos-grid">
+
+          <!-- 1. Lista de tareas -->
+          <article class="project-card reveal">
+            <div class="browser-frame">
+              <div class="browser-bar">
+                <span class="term-dot red"></span><span class="term-dot yellow"></span><span class="term-dot green"></span>
+                <span class="browser-url">lista-tareas/index.html</span>
+              </div>
+              <div class="browser-body">
+                <img src="img/app de tareas simpleV2.png" alt="Captura de pantalla de la aplicación Lista de Tareas" loading="lazy">
+              </div>
+            </div>
+            <div class="project-body">
+              <h3>✅ Lista de Tareas</h3>
+              <p>Aplicación para organizar tareas del día a día: agregar, marcar como completadas y eliminar, con una interfaz simple y responsive.</p>
+              <div class="tech-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+              <div class="project-links">
+                <a class="btn btn-sm btn-ghost" href="https://github.com/C4045/Mi-Portafolio/tree/main/proyectos/lista-tarea" target="_blank" rel="noopener">👾 Ver código</a>
+                <a class="btn btn-sm btn-primary" href="proyectos/lista-tarea/index.html" target="_blank" rel="noopener">🌐 Ver demo</a>
+              </div>
+              <details class="build-details">
+                <summary>Cómo lo construí</summary>
+                <ul>
+                  <li><strong>HTML:</strong> estructura con input, botones y lista</li>
+                  <li><strong>CSS:</strong> gradiente, sombras y estados hover</li>
+                  <li><strong>JavaScript:</strong> elementos dinámicos, manejo de eventos y clases con <code>classList.toggle()</code>, apoyándome en IA para acelerar partes puntuales</li>
+                </ul>
+                <p class="highlight">➳ Al marcar una tarea, cambia a fondo verde y el texto queda tachado.</p>
+              </details>
+            </div>
+          </article>
+
+          <!-- 2. Python -->
+          <article class="project-card reveal">
+            <div class="browser-frame">
+              <div class="browser-bar">
+                <span class="term-dot red"></span><span class="term-dot yellow"></span><span class="term-dot green"></span>
+                <span class="browser-url">python/scripts</span>
+              </div>
+              <div class="browser-body">
+                <img src="img/Python-Logo.jpg" alt="Logotipo de Python para sección de proyectos en Python" loading="lazy">
+              </div>
+            </div>
+            <div class="project-body">
+              <h3>🐍 Suite Python Pro</h3>
+              <p>Suite de escritorio con interfaz gráfica (CustomTkinter): calculadora científica, generador de contraseñas seguras y juego de adivinanza. Persistencia SQLite, exportación CSV/Excel/PDF y modo oscuro.</p>
+              <div class="tech-tags"><span>Python 3</span><span>CustomTkinter</span><span>SQLite</span><span>Export CSV/Excel/PDF</span></div>
+              <div class="project-links">
+                <a class="btn btn-sm btn-ghost" href="https://github.com/C4045/Mi-Portafolio/tree/main/proyectos/Python" target="_blank" rel="noopener">👾 Ver código</a>
+              </div>
+              <details class="build-details">
+                <summary>Características</summary>
+                <ul>
+                  <li><strong>Arquitectura modular:</strong> core/ compartido reutilizado por los 3 módulos</li>
+                  <li><strong>GUI moderna:</strong> CustomTkinter con modo oscuro/claro y animaciones</li>
+                  <li><strong>Persistencia:</strong> SQLite con historial, estadísticas y config</li>
+                  <li><strong>Seguridad:</strong> parser con ast (no eval), secrets (CSPRNG) para contraseñas</li>
+                  <li><strong>Exportación:</strong> CSV, Excel (.xlsx) y PDF desde cualquier módulo</li>
+                </ul>
+              </details>
+            </div>
+          </article>
+
+          <!-- 3. Sistema hotelero -->
+          <article class="project-card reveal">
+            <div class="browser-frame">
+              <div class="browser-bar">
+                <span class="term-dot red"></span><span class="term-dot yellow"></span><span class="term-dot green"></span>
+                <span class="browser-url">sistema-de-hotel/index.html</span>
+              </div>
+              <div class="browser-body">
+                <img src="img/APPDESISTEMAHOTEL.png" alt="Vista previa del Sistema de Gestión Hotelera" loading="lazy">
+              </div>
+            </div>
+            <div class="project-body">
+              <h3>🏨 Sistema de Gestión Hotelera</h3>
+              <p>Gestión de reservas, habitaciones y clientes de un hotel: crear reservas, ver el estado de las habitaciones y listar reservas activas.</p>
+              <div class="tech-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+              <div class="project-links">
+                <a class="btn btn-sm btn-ghost" href="https://github.com/C4045/Mi-Portafolio/tree/main/proyectos/sistema-de-hotel" target="_blank" rel="noopener">👾 Ver código</a>
+                <a class="btn btn-sm btn-primary" href="proyectos/sistema-de-hotel/index.html" target="_blank" rel="noopener">🌐 Ver demo</a>
+              </div>
+              <details class="build-details">
+                <summary>Cómo lo construí</summary>
+                <ul>
+                  <li><strong>HTML:</strong> formulario de reservas, listas y estructura general</li>
+                  <li><strong>CSS:</strong> diseño con gradientes, tarjetas y responsive</li>
+                  <li><strong>JavaScript:</strong> manejo de datos en arrays, eventos y DOM dinámico</li>
+                </ul>
+                <p class="highlight">➳ Al crear una reserva, se actualiza la lista de reservas activas y el estado de las habitaciones.</p>
+              </details>
+            </div>
+          </article>
+
+          <!-- 4. Tienda Online base -->
+          <article class="project-card reveal">
+            <div class="browser-frame">
+              <div class="browser-bar">
+                <span class="term-dot red"></span><span class="term-dot yellow"></span><span class="term-dot green"></span>
+                <span class="browser-url">tienda-online-mejorada/index.php</span>
+              </div>
+              <div class="browser-body">
+                <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vista ilustrada de una tienda online con catálogo y carrito">
+                  <rect width="320" height="200" fill="var(--ink-soft-2)"/>
+                  <rect x="0" y="0" width="320" height="26" fill="var(--ink)"/>
+                  <circle cx="16" cy="13" r="4" fill="var(--amber)"/>
+                  <rect x="270" y="7" width="34" height="12" rx="6" fill="var(--green)" opacity="0.8"/>
+                  <g fill="var(--ink)" stroke="var(--line)">
+                    <rect x="20" y="44" width="126" height="60" rx="6"/>
+                    <rect x="156" y="44" width="126" height="60" rx="6"/>
+                    <rect x="20" y="114" width="126" height="60" rx="6"/>
+                    <rect x="156" y="114" width="126" height="60" rx="6"/>
+                  </g>
+                  <g fill="var(--amber)" opacity="0.85">
+                    <rect x="34" y="56" width="98" height="8" rx="4"/>
+                    <rect x="170" y="56" width="98" height="8" rx="4"/>
+                    <rect x="34" y="126" width="98" height="8" rx="4"/>
+                    <rect x="170" y="126" width="98" height="8" rx="4"/>
+                  </g>
+                  <g fill="var(--text-faint)">
+                    <rect x="34" y="70" width="60" height="6" rx="3"/>
+                    <rect x="170" y="70" width="60" height="6" rx="3"/>
+                    <rect x="34" y="140" width="60" height="6" rx="3"/>
+                    <rect x="170" y="140" width="60" height="6" rx="3"/>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <div class="project-body">
+              <h3>🛒 Tienda Online (PHP + MySQL)</h3>
+              <p>Simulador de tienda con carrito de compras, gestión de productos y persistencia en base de datos.</p>
+              <div class="tech-tags"><span>PHP</span><span>MySQL</span><span>HTML</span><span>CSS</span></div>
+              <div class="project-links">
+                <a class="btn btn-sm btn-ghost" href="https://github.com/C4045/Mi-Portafolio/tree/main/proyectos/tienda-online-mejorada" target="_blank" rel="noopener">👾 Ver código</a>
+                <a class="btn btn-sm btn-primary" href="proyectos/tienda-online-mejorada/index.php" target="_blank" rel="noopener">🌐 Ver demo</a>
+              </div>
+              <details class="build-details">
+                <summary>Características</summary>
+                <ul>
+                  <li><strong>Catálogo de productos:</strong> lista con precios y stock</li>
+                  <li><strong>Carrito de compras:</strong> agregar, eliminar y vaciar</li>
+                  <li><strong>Base de datos:</strong> MySQL con relaciones (pedidos + items)</li>
+                  <li><strong>Procesamiento:</strong> validación de stock y registro de compras</li>
+                </ul>
+              </details>
+            </div>
+          </article>
+
+          <!-- 5. Tienda Moderna -->
+          <article class="project-card reveal">
+            <div class="browser-frame">
+              <div class="browser-bar">
+                <span class="term-dot red"></span><span class="term-dot yellow"></span><span class="term-dot green"></span>
+                <span class="browser-url">tienda-moderna/index.php</span>
+              </div>
+              <div class="browser-body">
+                <img src="img/TIENDA MODERNA.png" alt="Captura de pantalla de la Tienda Moderna" loading="lazy">
+              </div>
+            </div>
+            <div class="project-body">
+              <h3>🛒 Tienda Moderna (PHP + MySQL)</h3>
+              <p>E-commerce completo con carrito, catálogo con buscador, panel admin con dashboard, gestión de pedidos y stock.</p>
+              <div class="tech-tags"><span>PHP</span><span>MySQL</span><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+              <div class="project-links">
+                <a class="btn btn-sm btn-ghost" href="https://github.com/C4045/Mi-Portafolio/tree/main/proyectos/tienda-moderna" target="_blank" rel="noopener">👾 Ver código</a>
+                <a class="btn btn-sm btn-primary" href="proyectos/tienda-moderna/index.php" target="_blank" rel="noopener">🌐 Ver demo</a>
+              </div>
+              <details class="build-details">
+                <summary>Características</summary>
+                <ul>
+                  <li><strong>Catálogo:</strong> productos con búsqueda, ordenamiento y galería</li>
+                  <li><strong>Carrito:</strong> sesión con validación de stock en tiempo real</li>
+                  <li><strong>Checkout:</strong> transacciones SQL, bloqueo de filas, descuento de stock</li>
+                  <li><strong>Admin:</strong> dashboard, CRUD de productos, gestión de pedidos, bandeja de mensajes</li>
+                </ul>
+              </details>
+            </div>
+          </article>
+
+          <!-- 6. Terra & Hogar -->
+          <article class="project-card reveal">
+            <div class="browser-frame">
+              <div class="browser-bar">
+                <span class="term-dot red"></span><span class="term-dot yellow"></span><span class="term-dot green"></span>
+                <span class="browser-url">terra_hogar_php_mysql_cms/index.php</span>
+              </div>
+              <div class="browser-body">
+                <img src="img/immobiliaria.png" alt="Vista previa de Terra & Hogar - landing page de bienes raíces" loading="lazy">
+              </div>
+            </div>
+            <div class="project-body">
+              <h3>🏡 Terra & Hogar (PHP + MySQL)</h3>
+              <p>Landing page profesional para una inmobiliaria con formulario de contacto persistente en base de datos y panel admin.</p>
+              <div class="tech-tags"><span>PHP</span><span>MySQL</span><span>HTML</span><span>CSS</span></div>
+              <div class="project-links">
+                <a class="btn btn-sm btn-ghost" href="https://github.com/C4045/Mi-Portafolio/tree/main/proyectos/terra_hogar_php_mysql_cms" target="_blank" rel="noopener">👾 Ver código</a>
+                <a class="btn btn-sm btn-primary" href="proyectos/terra_hogar_php_mysql_cms/index.php" target="_blank" rel="noopener">🌐 Ver demo</a>
+              </div>
+              <details class="build-details">
+                <summary>Características</summary>
+                <ul>
+                  <li><strong>Landing page:</strong> secciones hero, propiedades, galería, planes, reseñas</li>
+                  <li><strong>Formulario de contacto:</strong> guarda en MySQL con validación</li>
+                  <li><strong>Panel admin:</strong> acceso a dashboard protegido</li>
+                  <li><strong>Base de datos:</strong> tablas para contactos, contenido dinámico y propiedades</li>
+                </ul>
+              </details>
+            </div>
+          </article>
+
+          <!-- 7. Eclat Restaurant -->
+          <article class="project-card reveal">
+            <div class="browser-frame">
+              <div class="browser-bar">
+                <span class="term-dot red"></span><span class="term-dot yellow"></span><span class="term-dot green"></span>
+                <span class="browser-url">Restaurant/index.php</span>
+              </div>
+              <div class="browser-body">
+                <img src="img/eclatR.png" alt="Captura de pantalla de Eclat Restaurant" loading="lazy">
+              </div>
+            </div>
+            <div class="project-body">
+              <h3>🍽️ Eclat (PHP + MySQL)</h3>
+              <p>Sistema de gestión para restaurante fine dining con reservas online, dashboard con estadísticas, panel admin protegido y menú dinámico.</p>
+              <div class="tech-tags"><span>PHP</span><span>MySQL</span><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+              <div class="project-links">
+                <a class="btn btn-sm btn-ghost" href="https://github.com/C4045/Mi-Portafolio/tree/main/proyectos/Restaurant" target="_blank" rel="noopener">👾 Ver código</a>
+                <a class="btn btn-sm btn-primary" href="proyectos/Restaurant/index.php" target="_blank" rel="noopener">🌐 Ver demo</a>
+              </div>
+              <details class="build-details">
+                <summary>Características</summary>
+                <ul>
+                  <li><strong>Reservas:</strong> formulario con validación y almacenamiento local + BD</li>
+                  <li><strong>Panel admin:</strong> login protegido, CRUD de platos con imágenes, categorías</li>
+                  <li><strong>Configuración:</strong> hero, horarios, contacto y fotos editables desde el admin</li>
+                  <li><strong>Dashboard público:</strong> estadísticas, filtros, búsqueda y gestión de reservas</li>
+                  <li><strong>Modo oscuro:</strong> toggle con persistencia en localStorage</li>
+                </ul>
+              </details>
+            </div>
+          </article>
+
+          <!-- 8. Arand-AI -->
+          <article class="project-card reveal">
+            <div class="browser-frame">
+              <div class="browser-bar">
+                <span class="term-dot red"></span><span class="term-dot yellow"></span><span class="term-dot green"></span>
+                <span class="browser-url">arand-ai.dev</span>
+              </div>
+              <div class="browser-body">
+                <img src="img/1.png" alt="Captura de pantalla de Arand-AI" loading="lazy">
+              </div>
+            </div>
+            <div class="project-body">
+              <h3>🤖 Arand-AI (Next.js + TypeScript)</h3>
+              <p>Landing page SaaS premium con animaciones, pricing dinámico, testimonios y dashboard showcase, construida con Next.js 15 y static export.</p>
+              <div class="tech-tags"><span>Next.js</span><span>TypeScript</span><span>Tailwind CSS</span><span>Framer Motion</span></div>
+              <div class="project-links">
+                <a class="btn btn-sm btn-ghost" href="https://github.com/C4045/Mi-Portafolio/tree/main/proyectos/ARAND-ai" target="_blank" rel="noopener">👾 Ver código</a>
+                <a class="btn btn-sm btn-primary" href="proyectos/ARAND-ai/out/index.html" target="_blank" rel="noopener">🌐 Ver demo</a>
+              </div>
+              <details class="build-details">
+                <summary>Características</summary>
+                <ul>
+                  <li><strong>15 componentes:</strong> Hero, Features, Pricing, Testimonials, FAQ, Integraciones</li>
+                  <li><strong>Animaciones:</strong> Framer Motion con scroll-triggered animations</li>
+                  <li><strong>Pricing dinámico:</strong> toggle mensual/anual con switch y ahorro</li>
+                  <li><strong>Dark mode:</strong> diseño oscuro premium con glassmorphism</li>
+                  <li><strong>Static export:</strong> Next.js 15 compilado a HTML estático sin servidor</li>
+                </ul>
+              </details>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SERVICIOS ===================== -->
+    <section id="servicios">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-eyebrow">servicios</p>
+          <h2 class="section-title">En qué te puedo ayudar</h2>
+          <p class="section-lead">Estas son las mismas piezas que armé en los proyectos de arriba, aplicadas a lo que tu negocio necesite.</p>
+        </div>
+        <div class="servicios-grid">
+          <div class="service-card reveal">
+            <div class="service-icon">🖥️</div>
+            <h3>Sitios web & Landing pages</h3>
+            <p>Diseño responsive, formularios de contacto funcionales y estructura pensada para convertir visitas en clientes.</p>
+          </div>
+          <div class="service-card reveal">
+            <div class="service-icon">🛒</div>
+            <h3>Tiendas online</h3>
+            <p>Catálogo de productos, carrito de compras, checkout con control de stock y panel de administración.</p>
+          </div>
+          <div class="service-card reveal">
+            <div class="service-icon">📅</div>
+            <h3>Reservas & paneles de gestión</h3>
+            <p>Sistemas de reservas en tiempo real, dashboards con estadísticas y CRUD completo para administrar tu negocio.</p>
+          </div>
+          <div class="service-card reveal">
+            <div class="service-icon">🐍</div>
+            <h3>Automatización con Python</h3>
+            <p>Scripts para tareas repetitivas, validación de datos y pequeñas herramientas a medida.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== HABILIDADES ===================== -->
+    <section id="habilidades">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-eyebrow">habilidades</p>
+          <h2 class="section-title">Con qué trabajo</h2>
+        </div>
+
+        <div class="skills-block reveal">
+          <h4>Frontend</h4>
+          <div class="skills-wrapper">
+            <span>🚀 HTML5</span>
+            <span>🎨 CSS3</span>
+            <span>⚡ JavaScript</span>
+            <span>📱 Responsive Design</span>
+          </div>
+        </div>
+
+        <div class="skills-block reveal">
+          <h4>Backend & datos</h4>
+          <div class="skills-wrapper">
+            <span>🌐 PHP</span>
+            <span>🗄️ MySQL</span>
+            <span>📊 SQL</span>
+            <span>🔧 XML</span>
+          </div>
+        </div>
+
+        <div class="skills-block reveal">
+          <h4>Lenguajes & herramientas</h4>
+          <div class="skills-wrapper">
+            <span>🐍 Python</span>
+            <span>🐙 Git &amp; GitHub</span>
+            <span>▲ Next.js / TypeScript</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SOBRE MÍ ===================== -->
+    <section id="sobre-mi">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-eyebrow">sobre-mi</p>
+          <h2 class="section-title">Quién está del otro lado del código</h2>
+        </div>
+
+        <div class="sobre-mi-grid">
+          <div class="term-window about-term reveal">
+            <div class="term-bar">
+              <span class="term-dot red"></span><span class="term-dot yellow"></span><span class="term-dot green"></span>
+              <span class="term-title">sobre-mi.md</span>
+            </div>
+            <div class="term-body">
+              <div class="avatar-mono">CJ</div>
+              <p><strong>Celso Javier Romero Paiva</strong> — Desarrollador Web Junior, Paraguay 🇵🇾</p>
+              <p>Me enfoco en crear aplicaciones prácticas y funcionales. Desarrollé proyectos que simulan entornos reales: sistemas de gestión de hoteles y restaurantes, tiendas online y procesos administrativos.</p>
+              <p>💡 Me destaco por mi pensamiento lógico, capacidad de resolver problemas y aprendizaje constante. Disfruto trabajar en soluciones simples pero bien estructuradas, aplicando buenas prácticas.</p>
+              <p>🎯 Actualmente sumando experiencia en proyectos freelance reales, mientras sigo mejorando mis habilidades técnicas.</p>
+            </div>
+          </div>
+
+          <div class="reveal">
+            <h3 style="font-size:1.1rem; margin-bottom:1.2rem;">Por qué trabajar conmigo</h3>
+            <ul class="values-list">
+              <li>
+                <span class="value-mark">&gt;</span>
+                <p><strong>Código organizado y comentado</strong>, pensado para que otra persona (o vos mismo) lo pueda mantener a futuro.</p>
+              </li>
+              <li>
+                <span class="value-mark">&gt;</span>
+                <p><strong>Comunicación clara</strong>, con actualizaciones frecuentes sobre el avance del proyecto.</p>
+              </li>
+              <li>
+                <span class="value-mark">&gt;</span>
+                <p><strong>Proyectos 100% funcionales:</strong> lo que ves en este portafolio no son mockups, podés probarlos en vivo.</p>
+              </li>
+              <li>
+                <span class="value-mark">&gt;</span>
+                <p><strong>Aprendizaje rápido:</strong> me adapto a nuevas tecnologías según lo que tu proyecto necesite.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACTO ===================== -->
+    <section id="contacto" class="contacto">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-eyebrow">contacto</p>
+          <h2 class="section-title">¿Hablamos de tu proyecto?</h2>
+          <p class="section-lead">Contame qué necesitás y te respondo por el medio que prefieras.</p>
+        </div>
+        <div class="contact-term reveal">
+          <a class="contact-item" href="mailto:romerocelso521@gmail.com">
+            <span class="term-prompt">$</span> mail <span style="color:var(--text-faint)">&rarr;</span> romerocelso521@gmail.com
+          </a>
+          <a class="contact-item" href="https://wa.me/595987172354" target="_blank" rel="noopener">
+            <span class="term-prompt">$</span> whatsapp <span style="color:var(--text-faint)">&rarr;</span> +595 987 172 354
+          </a>
+          <a class="contact-item" href="https://github.com/C4045" target="_blank" rel="noopener">
+            <span class="term-prompt">$</span> github <span style="color:var(--text-faint)">&rarr;</span> github.com/C4045
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© <span id="anio"></span> Celso Romero (celso.dev) — Desarrollador Web Full-Stack ·
+      <a href="https://github.com/C4045/Mi-Portafolio" target="_blank" rel="noopener">Código de este portafolio</a>
+    </p>
+  </footer>
+
+  <button id="back-to-top" aria-label="Volver arriba">↑</button>
+
+  <script src="app.js"></script>
+</body>
+</html>

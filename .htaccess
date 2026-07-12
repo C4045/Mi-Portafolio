@@ -1,0 +1,23 @@
+RewriteEngine On
+RewriteBase /PORTFOLIO-2/
+
+DirectoryIndex index.html index.php
+
+# Arand-AI Next.js static export: rewrite asset paths from GitHub Pages path to local
+RewriteCond %{REQUEST_URI} ^/Mi-Portafolio/proyectos/ARAND-ai/out/(.*)
+RewriteRule ^(.*)$ /PORTFOLIO-2/proyectos/ARAND-ai/out/%1 [R=302,L]
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript
+</IfModule>
+
+ErrorDocument 404 /PORTFOLIO-2/404.html

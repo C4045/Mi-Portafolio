@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Posada · Panel de Gestión Hotelera</title>
+<meta name="description" content="Panel de gestión hotelera: reservas, habitaciones, huéspedes e ingresos en un solo lugar.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="mobileSidebar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 8a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M2 20.5h20"/>
+        </svg>
+      </span>
+      <div>
+        <span class="brand-name">Posada</span>
+        <span class="brand-sub">Panel de gestión</span>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-item active" data-view="panel">
+        <span class="nav-icon" data-icon="grid"></span> Panel general
+      </button>
+      <button class="nav-item" data-view="reservas">
+        <span class="nav-icon" data-icon="calendarCheck"></span> Reservas
+      </button>
+      <button class="nav-item" data-view="habitaciones">
+        <span class="nav-icon" data-icon="door"></span> Habitaciones
+      </button>
+      <button class="nav-item" data-view="historial">
+        <span class="nav-icon" data-icon="history"></span> Historial
+      </button>
+    </nav>
+
+    <button class="btn btn-primary btn-block" data-action="nueva-reserva">
+      <span data-icon="plus"></span> Nueva reserva
+    </button>
+
+    <a href="../../index.html" class="btn-volver">
+      ← Volver al portafolio
+    </a>
+  </aside>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ============ CONTENIDO ============ -->
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn only-mobile" id="btnMobileMenu" aria-label="Abrir menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <h1 id="pageTitle">Panel general</h1>
+
+      <div class="topbar-search">
+        <span data-icon="search"></span>
+        <input type="search" id="searchInput" placeholder="Buscar por huésped, documento o código...">
+      </div>
+
+      <div class="topbar-actions">
+        <button class="icon-btn" id="btnTheme" title="Cambiar tema" aria-label="Cambiar tema claro/oscuro">
+          <span id="themeIcon"></span>
+        </button>
+        <button class="btn btn-primary only-desktop" data-action="nueva-reserva">
+          <span data-icon="plus"></span> Nueva reserva
+        </button>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- ============ PANEL GENERAL ============ -->
+      <section class="view active" id="view-panel">
+        <div class="stats-grid" id="statsGrid"></div>
+
+        <div class="panel-columns">
+          <div class="card">
+            <div class="card-head">
+              <h2><span data-icon="door"></span> Estado de habitaciones</h2>
+            </div>
+            <div class="rooms-grid" id="roomsGrid"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <h2><span data-icon="calendarCheck"></span> Últimas reservas</h2>
+              <button class="link-btn" data-view-link="reservas">Ver todas →</button>
+            </div>
+            <div class="ticket-list compact" id="reservationsPreview"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ RESERVAS ============ -->
+      <section class="view" id="view-reservas">
+        <div class="toolbar">
+          <div class="filters">
+            <select id="filterEstado" aria-label="Filtrar por estado">
+              <option value="todos">Todos los estados</option>
+              <option value="reservada">Reservada</option>
+              <option value="checkin">Check-In</option>
+              <option value="hospedado">Hospedado</option>
+              <option value="checkout">Check-Out</option>
+              <option value="finalizada">Finalizada</option>
+              <option value="cancelada">Cancelada</option>
+            </select>
+            <select id="filterTipo" aria-label="Filtrar por tipo de habitación">
+              <option value="todos">Todas las habitaciones</option>
+              <option value="Simple">Simple</option>
+              <option value="Doble">Doble</option>
+              <option value="Suite">Suite</option>
+            </select>
+            <button class="btn btn-ghost" id="btnClearFilters"><span data-icon="filter"></span> Limpiar</button>
+          </div>
+          <div class="toolbar-right">
+            <span class="muted" id="reservationsCount"></span>
+            <button class="btn btn-outline" id="btnExportExcel"><span data-icon="fileSheet"></span> Excel</button>
+            <button class="btn btn-outline" id="btnExportPDF"><span data-icon="fileText"></span> PDF</button>
+          </div>
+        </div>
+
+        <div class="ticket-list" id="reservationsList"></div>
+      </section>
+
+      <!-- ============ HABITACIONES ============ -->
+      <section class="view" id="view-habitaciones">
+        <div class="card">
+          <div class="card-head">
+            <h2><span data-icon="door"></span> Mapa de habitaciones</h2>
+            <div class="legend">
+              <span><i class="dot dot-disponible"></i> Disponible</span>
+              <span><i class="dot dot-reservada"></i> Reservada</span>
+              <span><i class="dot dot-ocupada"></i> Ocupada</span>
+            </div>
+          </div>
+          <div class="rooms-grid large" id="roomsGridFull"></div>
+        </div>
+      </section>
+
+      <!-- ============ HISTORIAL ============ -->
+      <section class="view" id="view-historial">
+        <div class="toolbar">
+          <p class="muted">Reservas finalizadas o canceladas, para consulta y auditoría.</p>
+        </div>
+        <div class="ticket-list" id="historyList"></div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<div id="modalRoot"></div>
+<div id="toastRoot" class="toast-root" aria-live="polite"></div>
+
+<!-- Librerías de exportación (PDF / Excel) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.1/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<!-- Módulos de la aplicación -->
+<script src="js/icons.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/data.js"></script>
+<script src="js/reservations.js"></script>
+<script src="js/export.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/ui-reservations.js"></script>
+<script src="js/app.js"></script>
+<script src="js/icons-mount.js"></script>
+</body>
+</html>

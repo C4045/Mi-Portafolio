@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Reserve your table at Éclat - Fine Dining Restaurant">
+    <meta name="theme-color" content="#1a1a1a">
+    <title>Make a Reservation - Éclat</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reservation.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main">
+        <div class="navbar__container">
+            <a href="index.html" class="navbar__logo" aria-label="Éclat - Home">
+                <span class="navbar__logo-text">Éclat</span>
+            </a>
+            
+            <button class="navbar__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="navbar__menu" id="navMenu">
+                <li><a href="index.html" class="navbar__link">Home</a></li>
+                <li><a href="index.html#featured" class="navbar__link">Dishes</a></li>
+                <li><a href="index.html#testimonials" class="navbar__link">Reviews</a></li>
+                <li><a href="dashboard.html" class="navbar__link">Dashboard</a></li>
+            </ul>
+
+            <div class="navbar__actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <svg class="icon icon--light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="icon icon--dark" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header" aria-label="Page header">
+        <div class="container">
+            <h1 class="page-header__title">Reserve Your Table</h1>
+            <p class="page-header__subtitle">Experience fine dining at its finest</p>
+        </div>
+    </section>
+
+    <main class="reservation-container">
+        <div class="container">
+            <div class="reservation-grid">
+                <!-- Reservation Form -->
+                <section class="reservation-form-section" aria-labelledby="form-title">
+                    <h2 id="form-title" class="section-title">Booking Details</h2>
+                    
+                    <form id="reservationForm" class="reservation-form" novalidate>
+                        <!-- Full Name -->
+                        <div class="form-group">
+                            <label for="fullName" class="form-label">Full Name *</label>
+                            <input 
+                                type="text" 
+                                id="fullName" 
+                                name="fullName" 
+                                class="form-input" 
+                                placeholder="Your name"
+                                required
+                                aria-required="true"
+                                aria-describedby="fullName-error"
+                            >
+                            <span id="fullName-error" class="form-error" role="alert"></span>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                class="form-input" 
+                                placeholder="your@email.com"
+                                required
+                                aria-required="true"
+                                aria-describedby="email-error"
+                            >
+                            <span id="email-error" class="form-error" role="alert"></span>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number *</label>
+                            <input 
+                                type="tel" 
+                                id="phone" 
+                                name="phone" 
+                                class="form-input" 
+                                placeholder="(123) 456-7890"
+                                required
+                                aria-required="true"
+                                aria-describedby="phone-error"
+                            >
+                            <span id="phone-error" class="form-error" role="alert"></span>
+                        </div>
+
+                        <!-- Reservation Date -->
+                        <div class="form-group">
+                            <label for="reservationDate" class="form-label">Reservation Date *</label>
+                            <input 
+                                type="date" 
+                                id="reservationDate" 
+                                name="reservationDate" 
+                                class="form-input" 
+                                required
+                                aria-required="true"
+                                aria-describedby="reservationDate-error"
+                            >
+                            <span id="reservationDate-error" class="form-error" role="alert"></span>
+                        </div>
+
+                        <!-- Reservation Time -->
+                        <div class="form-group">
+                            <label for="reservationTime" class="form-label">Reservation Time *</label>
+                            <select 
+                                id="reservationTime" 
+                                name="reservationTime" 
+                                class="form-input"
+                                required
+                                aria-required="true"
+                                aria-describedby="reservationTime-error"
+                            >
+                                <option value="">Select a time</option>
+                                <option value="17:00">5:00 PM</option>
+                                <option value="17:30">5:30 PM</option>
+                                <option value="18:00">6:00 PM</option>
+                                <option value="18:30">6:30 PM</option>
+                                <option value="19:00">7:00 PM</option>
+                                <option value="19:30">7:30 PM</option>
+                                <option value="20:00">8:00 PM</option>
+                                <option value="20:30">8:30 PM</option>
+                                <option value="21:00">9:00 PM</option>
+                                <option value="21:30">9:30 PM</option>
+                            </select>
+                            <span id="reservationTime-error" class="form-error" role="alert"></span>
+                        </div>
+
+                        <!-- Number of Guests -->
+                        <div class="form-group">
+                            <label for="guests" class="form-label">Number of Guests *</label>
+                            <select 
+                                id="guests" 
+                                name="guests" 
+                                class="form-input"
+                                required
+                                aria-required="true"
+                                aria-describedby="guests-error"
+                            >
+                                <option value="">Select number of guests</option>
+                                <option value="1">1 Guest</option>
+                                <option value="2">2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4 Guests</option>
+                                <option value="5">5 Guests</option>
+                                <option value="6">6 Guests</option>
+                                <option value="7">7 Guests</option>
+                                <option value="8">8 Guests</option>
+                                <option value="9">9 Guests</option>
+                                <option value="10">10 Guests</option>
+                                <option value="11">11 Guests</option>
+                                <option value="12">12 Guests</option>
+                            </select>
+                            <span id="guests-error" class="form-error" role="alert"></span>
+                        </div>
+
+                        <!-- Special Requests -->
+                        <div class="form-group">
+                            <label for="specialRequests" class="form-label">Special Requests</label>
+                            <textarea 
+                                id="specialRequests" 
+                                name="specialRequests" 
+                                class="form-input form-textarea" 
+                                placeholder="Any allergies, dietary preferences, or special occasions?"
+                                rows="4"
+                                aria-describedby="specialRequests-error"
+                            ></textarea>
+                            <span id="specialRequests-error" class="form-error" role="alert"></span>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn--primary btn--lg" id="submitBtn">
+                                <span class="btn-text">Reserve Table</span>
+                                <svg class="btn-loader hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 6v6l4 2"/>
+                                </svg>
+                            </button>
+                            <a href="index.html" class="btn btn--secondary">Cancel</a>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Reservation History -->
+                <section class="reservation-history-section" aria-labelledby="history-title">
+                    <h2 id="history-title" class="section-title">Your Reservations</h2>
+
+                    <!-- Search and Filter -->
+                    <div class="reservation-controls">
+                        <div class="search-box">
+                            <input 
+                                type="text" 
+                                id="searchInput" 
+                                class="form-input" 
+                                placeholder="Search by name..."
+                                aria-label="Search reservations"
+                            >
+                            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                            </svg>
+                        </div>
+
+                        <input 
+                            type="date" 
+                            id="filterDate" 
+                            class="form-input" 
+                            aria-label="Filter by date"
+                        >
+                    </div>
+
+                    <!-- Reservations List -->
+                    <div id="reservationsList" class="reservations-list">
+                        <div class="empty-state">
+                            <svg class="empty-state__icon" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="20" y="40" width="160" height="120" rx="10"/>
+                                <line x1="20" y1="80" x2="180" y2="80"/>
+                                <circle cx="60" cy="120" r="8"/>
+                                <path d="M80 110 L120 130 M80 130 L120 110"/>
+                                <circle cx="160" cy="120" r="8"/>
+                            </svg>
+                            <h3 class="empty-state__title">No Reservations Yet</h3>
+                            <p class="empty-state__text">Your reservations will appear here once you make a booking</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal__overlay"></div>
+        <div class="modal__content">
+            <div class="modal__header">
+                <h2 id="modal-title" class="modal__title">Reservation Confirmed!</h2>
+                <button class="modal__close" id="closeModal" aria-label="Close modal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal__body">
+                <div class="success-icon">
+                    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+                        <circle cx="50" cy="50" r="40"/>
+                        <path d="M30 50 L45 65 L70 35"/>
+                    </svg>
+                </div>
+                <p class="modal__text">Your reservation has been successfully booked!</p>
+                <div id="confirmationDetails" class="confirmation-details"></div>
+            </div>
+            <div class="modal__footer">
+                <button class="btn btn--primary" id="modalCloseBtn">Done</button>
+                <a href="dashboard.html" class="btn btn--secondary">View All Reservations</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal" role="dialog" aria-labelledby="edit-modal-title" aria-hidden="true">
+        <div class="modal__overlay"></div>
+        <div class="modal__content modal__content--edit">
+            <div class="modal__header">
+                <h2 id="edit-modal-title" class="modal__title">Edit Reservation</h2>
+                <button class="modal__close" id="closeEditModal" aria-label="Close modal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <form id="editForm" class="reservation-form">
+                <div class="form-group">
+                    <label for="editFullName" class="form-label">Full Name</label>
+                    <input type="text" id="editFullName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="editEmail" class="form-label">Email</label>
+                    <input type="email" id="editEmail" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="editPhone" class="form-label">Phone</label>
+                    <input type="tel" id="editPhone" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="editDate" class="form-label">Date</label>
+                    <input type="date" id="editDate" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="editTime" class="form-label">Time</label>
+                    <select id="editTime" class="form-input" required>
+                        <option value="17:00">5:00 PM</option>
+                        <option value="17:30">5:30 PM</option>
+                        <option value="18:00">6:00 PM</option>
+                        <option value="18:30">6:30 PM</option>
+                        <option value="19:00">7:00 PM</option>
+                        <option value="19:30">7:30 PM</option>
+                        <option value="20:00">8:00 PM</option>
+                        <option value="20:30">8:30 PM</option>
+                        <option value="21:00">9:00 PM</option>
+                        <option value="21:30">9:30 PM</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editGuests" class="form-label">Guests</label>
+                    <select id="editGuests" class="form-input" required>
+                        <option value="1">1 Guest</option>
+                        <option value="2">2 Guests</option>
+                        <option value="3">3 Guests</option>
+                        <option value="4">4 Guests</option>
+                        <option value="5">5 Guests</option>
+                        <option value="6">6 Guests</option>
+                        <option value="7">7 Guests</option>
+                        <option value="8">8 Guests</option>
+                        <option value="9">9 Guests</option>
+                        <option value="10">10 Guests</option>
+                        <option value="11">11 Guests</option>
+                        <option value="12">12 Guests</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editSpecialRequests" class="form-label">Special Requests</label>
+                    <textarea id="editSpecialRequests" class="form-input form-textarea" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn--primary">Save Changes</button>
+                    <button type="button" class="btn btn--secondary" id="cancelEditBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container" role="region" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top" title="Scroll to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script src="js/app.js"></script>
+    <script src="js/reservation.js"></script>
+</body>
+</html>
