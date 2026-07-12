@@ -1,23 +1,18 @@
-# Celso Dev - Portafolio
+# Celso Romero | Desarrollador Web Full-Stack
 
-Portafolio personal de Celso Javier Romero Paiva, desarrollador web full-stack.
+¡Hola! Soy desarrollador web Full-Stack con experiencia creando páginas web, sistemas administrativos y landing pages modernas.
 
+Trabajo principalmente con:
 
+- HTML, CSS y JavaScript
+- Next.js y TypeScript
+- PHP y MySQL
+- Python
+- Git y GitHub
 
+En este perfil encontrarás proyectos personales y desarrollos que reflejan mis conocimientos y mi crecimiento como desarrollador.
 
-## Proyectos
+🌐 Portafolio:
+https://celso-romero-dev.wuaze.com/
 
-| # | Proyecto | Tech |
-|---|----------|------|
-| 1 | Lista de Tareas | HTML, CSS, JS |
-| 2 | Automatizaciones Python | Python 3 |
-| 3 | Sistema de Gestión Hotelera | HTML, CSS, JS |
-| 4 | Tienda Online | PHP, MySQL |
-| 5 | Tienda Moderna | PHP, MySQL, JS |
-| 6 | Terra & Hogar (Inmobiliaria) | PHP, MySQL |
-| 7 | Eclat Restaurant | PHP, MySQL, JS |
-| 8 | Arand-AI SaaS Landing | Next.js, TypeScript, Tailwind |
-
-## Tecnologías
-
-HTML5, CSS3, JavaScript, Python, PHP, MySQL, Git & GitHub, Next.js, TypeScript
+Siempre estoy abierto a nuevos desafíos y oportunidades para seguir aprendiendo y crear soluciones de calidad.
