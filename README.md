@@ -2,13 +2,8 @@
 
 Portafolio personal de Celso Javier Romero Paiva, desarrollador web full-stack.
 
-## Local
 
-```bash
-http://localhost/PORTFOLIO-2/
-```
 
-Requiere XAMPP (Apache + PHP + MySQL) para los proyectos PHP.
 
 ## Proyectos
 
