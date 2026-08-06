@@ -13,7 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar" role="navigation" aria-label="Main">
         <div class="navbar__container">
             <a href="index.html" class="navbar__logo" aria-label="Éclat - Home">
@@ -45,7 +44,6 @@
         </div>
     </nav>
 
-    <!-- Page Header -->
     <section class="page-header" aria-label="Page header">
         <div class="container">
             <h1 class="page-header__title">Reservation Dashboard</h1>
@@ -55,9 +53,7 @@
 
     <main class="dashboard-container">
         <div class="container">
-            <!-- Statistics Cards -->
             <section class="stats-grid" aria-label="Reservation statistics">
-                <!-- Total Reservations -->
                 <article class="stat-card" aria-labelledby="total-label">
                     <div class="stat-card__icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -70,7 +66,6 @@
                     </div>
                 </article>
 
-                <!-- Today's Reservations -->
                 <article class="stat-card" aria-labelledby="today-label">
                     <div class="stat-card__icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -83,7 +78,6 @@
                     </div>
                 </article>
 
-                <!-- Upcoming Reservations -->
                 <article class="stat-card" aria-labelledby="upcoming-label">
                     <div class="stat-card__icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -96,7 +90,6 @@
                     </div>
                 </article>
 
-                <!-- Total Guests -->
                 <article class="stat-card" aria-labelledby="guests-label">
                     <div class="stat-card__icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -110,7 +103,6 @@
                 </article>
             </section>
 
-            <!-- Controls -->
             <section class="dashboard-controls" aria-label="Dashboard controls">
                 <div class="controls-wrapper">
                     <div class="search-box">
@@ -155,7 +147,6 @@
                 </div>
             </section>
 
-            <!-- Reservations List -->
             <section class="reservations-section" aria-labelledby="reservations-heading">
                 <h2 id="reservations-heading" class="section-title">All Reservations</h2>
                 
@@ -177,7 +168,6 @@
         </div>
     </main>
 
-    <!-- Delete Confirmation Modal -->
     <div id="deleteModal" class="modal" role="dialog" aria-labelledby="delete-modal-title" aria-hidden="true">
         <div class="modal__overlay"></div>
         <div class="modal__content">
@@ -199,7 +189,6 @@
         </div>
     </div>
 
-    <!-- Edit Modal -->
     <div id="editModal" class="modal" role="dialog" aria-labelledby="edit-modal-title" aria-hidden="true">
         <div class="modal__overlay"></div>
         <div class="modal__content modal__content--edit">
@@ -272,10 +261,8 @@
         </div>
     </div>
 
-    <!-- Toast Container -->
     <div id="toastContainer" class="toast-container" role="region" aria-live="polite" aria-atomic="true"></div>
 
-    <!-- Scroll to Top Button -->
     <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top" title="Scroll to top">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="18 15 12 9 6 15"></polyline>

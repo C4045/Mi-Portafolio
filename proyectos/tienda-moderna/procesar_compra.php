@@ -6,7 +6,6 @@ if (empty($_SESSION['carrito'])) {
     exit();
 }
 
-// Obtener productos del carrito con validación de stock
 $ids = array_map('intval', array_keys($_SESSION['carrito']));
 $ids_str = implode(',', $ids);
 $result = $conn->query("SELECT * FROM productos WHERE id IN ($ids_str)");
@@ -25,7 +24,6 @@ while ($row = $result->fetch_assoc()) {
     $productos[] = $row;
 }
 
-// Procesar formulario
 $errores_form = [];
 $datos = [];
 
@@ -38,14 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $datos['notas']     = limpiar($_POST['notas'] ?? '');
     $datos['password']  = $_POST['registro_pass'] ?? '';
 
-    // Validaciones
     if (strlen($datos['nombre']) < 3) $errores_form[] = __('nombre_minimo_3');
     if (!filter_var($datos['email'], FILTER_VALIDATE_EMAIL)) $errores_form[] = __('email_no_valido');
     if (strlen($datos['direccion']) < 5) $errores_form[] = __('direccion_corta');
     if (strlen($datos['ciudad']) < 2) $errores_form[] = __('ingresa_ciudad');
 
     if (empty($errores_form) && empty($errores_stock)) {
-        // Insertar pedido en transacción
         $conn->begin_transaction();
         try {
             $stmt = $conn->prepare("INSERT INTO pedidos (nombre_cliente, email, telefono, direccion, ciudad, notas, total) VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -54,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pedido_id = $stmt->insert_id;
 
             foreach ($productos as $item) {
-                // Verificar stock en tiempo real (transacción)
                 $chk = $conn->prepare("SELECT stock FROM productos WHERE id = ? FOR UPDATE");
                 $chk->bind_param("i", $item['id']);
                 $chk->execute();
@@ -77,7 +72,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['carrito'] = [];
             $_SESSION['ultimo_pedido'] = $pedido_id;
 
-            // Registrar o loguear cliente
             $chk = $conn->prepare("SELECT id, nombre FROM clientes WHERE email=?");
             $chk->bind_param("s", $datos['email']); $chk->execute();
             $cliente_existente = $chk->get_result()->fetch_assoc();
@@ -149,7 +143,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         document.addEventListener('DOMContentLoaded',function(){var b=document.getElementById('btnModo');if(b&&document.documentElement.classList.contains('light-mode'))b.textContent=''})
         </script>
 
-        <!-- Errores de stock -->
         <?php if (!empty($errores_stock)): ?>
           <div class="mensaje mensaje-error">
             <strong> <?= __('problema_stock') ?></strong><br>
@@ -160,7 +153,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
         <?php endif; ?>
 
-        <!-- Errores del formulario -->
         <?php if (!empty($errores_form)): ?>
           <div class="mensaje mensaje-error">
             <strong> <?= __('corrige_errores') ?></strong><br>

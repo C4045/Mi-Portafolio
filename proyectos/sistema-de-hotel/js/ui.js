@@ -1,7 +1,3 @@
-/* =========================================================
-   ui.js — Render, modales, toasts y widgets de interfaz
-   Namespace: App.UI
-   ========================================================= */
 (function (App) {
   'use strict';
 
@@ -13,9 +9,6 @@
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
-  /* ---------------------------------------------------------
-     TOASTS
-  --------------------------------------------------------- */
   function toast(message, type = 'info', duration = 3600) {
     const root = $('#toastRoot');
     if (!root) return;
@@ -39,9 +32,6 @@
     el.querySelector('.toast-close').addEventListener('click', () => { clearTimeout(timer); remove(); });
   }
 
-  /* ---------------------------------------------------------
-     MODALES
-  --------------------------------------------------------- */
   function openModal(innerHTML, { size = 'md', onMount } = {}) {
     closeModal();
     const root = $('#modalRoot');
@@ -106,9 +96,6 @@
     });
   }
 
-  /* ---------------------------------------------------------
-     STATS
-  --------------------------------------------------------- */
   function renderStats() {
     const s = D().getStats();
     const grid = $('#statsGrid');
@@ -130,9 +117,6 @@
     `).join('');
   }
 
-  /* ---------------------------------------------------------
-     HABITACIONES (grid tipo "key card")
-  --------------------------------------------------------- */
   function renderRooms() {
     const grids = $$('#roomsGrid, #roomsGridFull');
     if (!grids.length) return;

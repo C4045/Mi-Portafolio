@@ -1,7 +1,3 @@
-/* =========================================================
-   export.js — Exportación a PDF y Excel
-   Namespace: App.Export
-   ========================================================= */
 (function (App) {
   'use strict';
 

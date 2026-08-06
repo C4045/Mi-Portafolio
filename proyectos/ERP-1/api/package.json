@@ -1,0 +1,39 @@
+{
+  "name": "erp-1-api",
+  "version": "1.0.0",
+  "description": "ERP para PYMES - Backend Node.js",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:seed": "node prisma/seed.js",
+    "prisma:studio": "prisma studio",
+    "postinstall": "prisma generate"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.5.0",
+    "bcrypt": "^5.1.1",
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.2",
+    "express-rate-limit": "^8.6.0",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.2.0",
+    "pdfkit": "^0.19.1",
+    "uuid": "^11.1.0",
+    "winston": "^3.17.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "prisma": "^6.5.0"
+  }
+}

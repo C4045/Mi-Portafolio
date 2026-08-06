@@ -58,9 +58,7 @@ class PasswordGeneratorEngine:
         (math.inf, "Muy fuerte"),
     ]
 
-    # ------------------------------------------------------------------ #
     # Construcción del conjunto de caracteres
-    # ------------------------------------------------------------------ #
     @staticmethod
     def _construir_charset(opciones: OpcionesGeneracion) -> str:
         charset = ""
@@ -81,9 +79,7 @@ class PasswordGeneratorEngine:
 
         return charset
 
-    # ------------------------------------------------------------------ #
     # Generación
-    # ------------------------------------------------------------------ #
     def generar(self, opciones: OpcionesGeneracion, etiqueta: str = "", guardar: bool = True) -> ResultadoPassword:
         if not (4 <= opciones.longitud <= 128):
             raise ValidationError("La longitud debe estar entre 4 y 128 caracteres.")
@@ -154,9 +150,7 @@ class PasswordGeneratorEngine:
             raise ValidationError("La cantidad debe estar entre 1 y 100.")
         return [self.generar(opciones, etiqueta="lote", guardar=True) for _ in range(cantidad)]
 
-    # ------------------------------------------------------------------ #
     # Análisis de fortaleza
-    # ------------------------------------------------------------------ #
     @staticmethod
     def _calcular_entropia(password: str, tamano_charset: int) -> float:
         if tamano_charset <= 1:
@@ -169,9 +163,7 @@ class PasswordGeneratorEngine:
                 return etiqueta
         return "Muy fuerte"
 
-    # ------------------------------------------------------------------ #
     # Historial (se guarda únicamente el hash, nunca la contraseña real)
-    # ------------------------------------------------------------------ #
     @staticmethod
     def _guardar_en_historial(
         password: str, longitud: int, entropia: float, fortaleza: str, etiqueta: str

@@ -13,7 +13,6 @@ class UI {
       sort: 'creacion',
     };
 
-    // --- referencias del DOM ---
     this.el = {
       themeToggle: document.getElementById('themeToggle'),
       ringFill: document.getElementById('progressRingFill'),
@@ -55,7 +54,6 @@ class UI {
     this.render();
   }
 
-  /* ======================= TEMA ======================= */
   _initTheme() {
     const stored = Storage.getTheme();
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -77,7 +75,6 @@ class UI {
     Storage.saveTheme(next);
   }
 
-  /* ======================= EVENTOS ======================= */
   _bindEvents() {
     this.el.themeToggle.addEventListener('click', () => this._toggleTheme());
 
@@ -126,7 +123,6 @@ class UI {
     Storage.saveFormExpanded(expanded);
   }
 
-  /* ======================= ACCIONES ======================= */
   _handleAddSubmit(e) {
     e.preventDefault();
     const text = this.el.tareaInput.value.trim();
@@ -244,7 +240,6 @@ class UI {
     });
   }
 
-  /* ======================= RENDER ======================= */
   render(opts = {}) {
     const { newTaskId = null, justToggledId = null } = opts;
     const filtered = this.tm.filter({
@@ -415,7 +410,6 @@ class UI {
     this.el.limpiarBtn.disabled = stats.total === 0;
   }
 
-  /* ======================= TOASTS ======================= */
   _showToast(message, actionLabel, onAction) {
     const toast = document.createElement('div');
     toast.className = 'toast';

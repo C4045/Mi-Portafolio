@@ -17,7 +17,6 @@ const fadeUp = {
 export default function Hero() {
   return (
     <section id="top" className="relative overflow-hidden pb-10 pt-40 md:pb-16 md:pt-48">
-      {/* Background grid + glow */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-radial-glow" />
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-40"

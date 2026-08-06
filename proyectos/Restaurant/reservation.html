@@ -13,7 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar" role="navigation" aria-label="Main">
         <div class="navbar__container">
             <a href="index.html" class="navbar__logo" aria-label="Éclat - Home">
@@ -46,7 +45,6 @@
         </div>
     </nav>
 
-    <!-- Page Header -->
     <section class="page-header" aria-label="Page header">
         <div class="container">
             <h1 class="page-header__title">Reserve Your Table</h1>
@@ -57,12 +55,10 @@
     <main class="reservation-container">
         <div class="container">
             <div class="reservation-grid">
-                <!-- Reservation Form -->
                 <section class="reservation-form-section" aria-labelledby="form-title">
                     <h2 id="form-title" class="section-title">Booking Details</h2>
                     
                     <form id="reservationForm" class="reservation-form" novalidate>
-                        <!-- Full Name -->
                         <div class="form-group">
                             <label for="fullName" class="form-label">Full Name *</label>
                             <input 
@@ -78,7 +74,6 @@
                             <span id="fullName-error" class="form-error" role="alert"></span>
                         </div>
 
-                        <!-- Email -->
                         <div class="form-group">
                             <label for="email" class="form-label">Email Address *</label>
                             <input 
@@ -94,7 +89,6 @@
                             <span id="email-error" class="form-error" role="alert"></span>
                         </div>
 
-                        <!-- Phone -->
                         <div class="form-group">
                             <label for="phone" class="form-label">Phone Number *</label>
                             <input 
@@ -110,7 +104,6 @@
                             <span id="phone-error" class="form-error" role="alert"></span>
                         </div>
 
-                        <!-- Reservation Date -->
                         <div class="form-group">
                             <label for="reservationDate" class="form-label">Reservation Date *</label>
                             <input 
@@ -125,7 +118,6 @@
                             <span id="reservationDate-error" class="form-error" role="alert"></span>
                         </div>
 
-                        <!-- Reservation Time -->
                         <div class="form-group">
                             <label for="reservationTime" class="form-label">Reservation Time *</label>
                             <select 
@@ -151,7 +143,6 @@
                             <span id="reservationTime-error" class="form-error" role="alert"></span>
                         </div>
 
-                        <!-- Number of Guests -->
                         <div class="form-group">
                             <label for="guests" class="form-label">Number of Guests *</label>
                             <select 
@@ -179,7 +170,6 @@
                             <span id="guests-error" class="form-error" role="alert"></span>
                         </div>
 
-                        <!-- Special Requests -->
                         <div class="form-group">
                             <label for="specialRequests" class="form-label">Special Requests</label>
                             <textarea 
@@ -193,7 +183,6 @@
                             <span id="specialRequests-error" class="form-error" role="alert"></span>
                         </div>
 
-                        <!-- Form Actions -->
                         <div class="form-actions">
                             <button type="submit" class="btn btn--primary btn--lg" id="submitBtn">
                                 <span class="btn-text">Reserve Table</span>
@@ -207,11 +196,9 @@
                     </form>
                 </section>
 
-                <!-- Reservation History -->
                 <section class="reservation-history-section" aria-labelledby="history-title">
                     <h2 id="history-title" class="section-title">Your Reservations</h2>
 
-                    <!-- Search and Filter -->
                     <div class="reservation-controls">
                         <div class="search-box">
                             <input 
@@ -234,7 +221,6 @@
                         >
                     </div>
 
-                    <!-- Reservations List -->
                     <div id="reservationsList" class="reservations-list">
                         <div class="empty-state">
                             <svg class="empty-state__icon" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2">
@@ -253,7 +239,6 @@
         </div>
     </main>
 
-    <!-- Confirmation Modal -->
     <div id="confirmationModal" class="modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
         <div class="modal__overlay"></div>
         <div class="modal__content">
@@ -282,7 +267,6 @@
         </div>
     </div>
 
-    <!-- Edit Modal -->
     <div id="editModal" class="modal" role="dialog" aria-labelledby="edit-modal-title" aria-hidden="true">
         <div class="modal__overlay"></div>
         <div class="modal__content modal__content--edit">
@@ -355,10 +339,8 @@
         </div>
     </div>
 
-    <!-- Toast Container -->
     <div id="toastContainer" class="toast-container" role="region" aria-live="polite" aria-atomic="true"></div>
 
-    <!-- Scroll to Top Button -->
     <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top" title="Scroll to top">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="18 15 12 9 6 15"></polyline>

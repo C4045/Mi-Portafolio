@@ -10,7 +10,6 @@ $seccion = $_GET['s'] ?? 'dashboard';
 $msg = '';
 $err = '';
 
-// ── ACCIONES POST ──────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $accion = $_POST['accion'] ?? '';
 
@@ -32,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Agregar producto
     if ($accion === 'agregar_producto') {
         $nombre      = trim($_POST['nombre']);
         $descripcion = trim($_POST['descripcion']);
@@ -65,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $seccion = 'productos';
     }
 
-    // Editar producto
     if ($accion === 'editar_producto') {
         $id          = (int)$_POST['id'];
         $nombre      = trim($_POST['nombre']);
@@ -108,7 +105,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Agregar fotos extra a producto existente
     if ($accion === 'agregar_fotos') {
         $id = (int)$_POST['id'];
         $r = $conn->prepare("SELECT imagen FROM productos WHERE id=?");
@@ -123,7 +119,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Eliminar foto extra
     if ($accion === 'eliminar_foto') {
         $archivo = basename($_POST['archivo']);
         if (file_exists('img/'.$archivo)) unlink('img/'.$archivo);
@@ -131,7 +126,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Eliminar producto
     if ($accion === 'eliminar_producto') {
         $id = (int)$_POST['id'];
         $r = $conn->prepare("SELECT imagen FROM productos WHERE id=?");
@@ -167,7 +161,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $seccion = 'pedidos';
     }
 
-    // Eliminar pedido (solo cancelados)
     if ($accion === 'eliminar_pedido') {
         $id = (int)$_POST['id'];
         $chk = $conn->prepare("SELECT estado FROM pedidos WHERE id=?");
@@ -197,7 +190,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $seccion = 'pedidos';
     }
 
-    // Guardar config
     if ($accion === 'guardar_config') {
         $_SESSION['config_tienda'] = [
             'nombre'     => limpiar($_POST['nombre_tienda']),
@@ -215,7 +207,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Eliminar GET
 if (isset($_GET['del']) && $seccion === 'productos') {
     $id = (int)$_GET['del'];
     $r = $conn->prepare("SELECT imagen FROM productos WHERE id=?");
@@ -227,7 +218,6 @@ if (isset($_GET['del']) && $seccion === 'productos') {
     header("Location: admin.php?s=productos&msg=eliminado"); exit();
 }
 
-// ── DATOS SEGÚN SECCIÓN ────────────────────────────────────────
 $datos = [];
 
 if ($seccion === 'dashboard') {
@@ -276,7 +266,6 @@ if ($seccion === 'pedidos') {
 }
 
 if ($seccion === 'mensajes') {
-    // Mensajes desde la tabla contactos (si existe)
     $tabla_existe = $conn->query("SHOW TABLES LIKE 'contactos'")->num_rows > 0;
     if (!$tabla_existe) {
         $conn->query("CREATE TABLE IF NOT EXISTS contactos (
@@ -307,7 +296,6 @@ if ($seccion === 'mensajes') {
 
 $config = $_SESSION['config_tienda'] ?? ['nombre'=>'NovaRandú','whatsapp'=>'','email_contacto'=>'','moneda'=>'Gs.'];
 
-// Badge no leídos
 $no_leidos = 0;
 $tbl = $conn->query("SHOW TABLES LIKE 'contactos'");
 if ($tbl->num_rows > 0) {
@@ -327,11 +315,9 @@ if ($tbl->num_rows > 0) {
   <link rel="stylesheet" href="styles.css">
   <script>(function(){var m=localStorage.getItem('modo');if(m==='claro'){document.documentElement.classList.add('light-mode')}})();</script>
 <style>
-/* ── LAYOUT ── */
 body { padding: 0; margin: 0; }
 .admin-layout { display: flex; min-height: 100vh; }
 
-/* SIDEBAR */
 .sidebar {
   width: 220px; flex-shrink: 0;
   background: #1a1a2e;
@@ -370,13 +356,11 @@ body { padding: 0; margin: 0; }
   text-align: center; text-decoration: none;
 }
 
-/* CONTENIDO */
 .admin-content { flex: 1; padding: 2rem; background: #f7f8fc; min-height: 100vh; }
 .page-header { margin-bottom: 1.5rem; }
 .page-header h1 { font-size: 1.5rem; color: #1a1a2e; margin-bottom: 0.2rem; }
 .page-header p { color: #666; font-size: 0.9rem; }
 
-/* STATS */
 .stats-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 1rem; margin-bottom: 1.5rem; }
 .stat { background: white; border-radius: 12px; padding: 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-top: 3px solid #667eea; }
 .stat.alerta { border-top-color: #e53e3e; }
@@ -385,18 +369,15 @@ body { padding: 0; margin: 0; }
 .stat-num  { font-size: 1.9rem; font-weight: bold; color: #1a1a2e; }
 .stat-label{ font-size: 0.8rem; color: #888; margin-top: 2px; }
 
-/* CARD */
 .panel { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; }
 .panel h2 { font-size: 1.1rem; color: #1a1a2e; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #eee; }
 
-/* TABLA */
 .tbl { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 .tbl th { background: #f1f3f9; color: #555; font-weight: 600; padding: 0.7rem 1rem; text-align: left; }
 .tbl td { padding: 0.75rem 1rem; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
 .tbl tr:last-child td { border-bottom: none; }
 .tbl tr:hover td { background: #fafbff; }
 
-/* BADGES */
 .badge-estado {
   display: inline-block; padding: 3px 10px; border-radius: 50px; font-size: 0.75rem; font-weight: 600;
 }
@@ -406,7 +387,6 @@ body { padding: 0; margin: 0; }
 .e-entregado  { background: #d1fae5; color: #065f46; }
 .e-cancelado  { background: #fee2e2; color: #991b1b; }
 
-/* FORMULARIO */
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .form-grid .span2 { grid-column: span 2; }
 .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #444; margin-bottom: 5px; }
@@ -429,7 +409,6 @@ body { padding: 0; margin: 0; }
 .btn-small { font-size:0.7rem; padding:2px 6px; border-radius:4px; cursor:pointer; }
 .btn-danger { background:#e74c3c; color:#fff; border:none; }
 
-/* BOTONES */
 .btn { display: inline-flex; align-items: center; gap: 6px; padding: 0.55rem 1.1rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; transition: opacity 0.2s; }
 .btn:hover { opacity: 0.88; }
 .btn-primary { background: #667eea; color: white; }
@@ -439,36 +418,28 @@ body { padding: 0; margin: 0; }
 .btn-ghost   { background: #f1f3f9; color: #444; }
 .btn-sm      { padding: 0.3rem 0.7rem; font-size: 0.8rem; }
 
-/* ACCIONES TABLA */
 .acciones { display: flex; gap: 6px; }
 
-/* ALERT */
 .alerta-msg { padding: 0.85rem 1rem; border-radius: 8px; margin-bottom: 1rem; font-size: 0.9rem; }
 .alerta-ok  { background: #d1fae5; color: #065f46; }
 .alerta-err { background: #fee2e2; color: #991b1b; }
 
-/* DETALLE PEDIDO */
 .detalle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
 .detalle-item { font-size: 0.9rem; }
 .detalle-item label { color: #888; font-size: 0.78rem; display: block; margin-bottom: 2px; font-weight: 600; text-transform: uppercase; }
 
-/* MENSAJE CONTACTO */
 .msg-cuerpo { background: #f7f8fc; border-radius: 8px; padding: 1rem; font-size: 0.95rem; line-height: 1.7; white-space: pre-wrap; margin: 1rem 0; }
 .msg-no-leido td { font-weight: 600; }
 
-/* FILTROS */
 .filtros { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
 .filtro-btn { padding: 0.35rem 0.9rem; border-radius: 50px; font-size: 0.8rem; border: 2px solid #e2e8f0; background: white; cursor: pointer; text-decoration: none; color: #555; }
 .filtro-btn.activo { background: #667eea; color: white; border-color: #667eea; }
 
-/* UPLOAD */
 .upload-area { border: 2px dashed #c8d0e7; border-radius: 8px; padding: 1rem; text-align: center; color: #888; font-size: 0.85rem; }
 .upload-area input { width: 100%; }
 
-/* VACÍO */
 .vacio-tabla { text-align: center; padding: 2rem; color: #aaa; }
 
-/* RESPONSIVE */
 @media (max-width: 768px) {
   .admin-layout { flex-direction: column; }
   .sidebar { width: 100%; height: auto; position: static; }
@@ -481,7 +452,6 @@ body { padding: 0; margin: 0; }
 <body>
 <div class="admin-layout">
 
-  <!-- ── SIDEBAR ── -->
   <aside class="sidebar">
     <div class="sidebar-logo">
        <?= __('tienda_nombre') ?>
@@ -527,14 +497,12 @@ body { padding: 0; margin: 0; }
     </script>
   </aside>
 
-  <!-- ── CONTENIDO ── -->
   <main class="admin-content">
 
     <?php if ($msg): ?><div class="alerta-msg alerta-ok"><?= $msg ?></div><?php endif; ?>
     <?php if ($err): ?><div class="alerta-msg alerta-err"> <?= $err ?></div><?php endif; ?>
     <?php if (isset($_GET['msg'])): ?><div class="alerta-msg alerta-ok"> Hecho</div><?php endif; ?>
 
-    <!-- ══════════════ DASHBOARD ══════════════ -->
     <?php if ($seccion === 'dashboard'): ?>
     <div class="page-header">
       <h1> <?= __('dashboard') ?></h1>
@@ -571,7 +539,6 @@ body { padding: 0; margin: 0; }
     </div>
 
     <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
-      <!-- Últimos pedidos -->
       <div class="panel">
         <h2> <?= __('ultimos_pedidos') ?></h2>
         <?php if ($datos['ultimos_pedidos']->num_rows > 0): ?>
@@ -592,7 +559,6 @@ body { padding: 0; margin: 0; }
         <div style="text-align:right; margin-top:0.75rem;"><a href="admin.php?s=pedidos" class="btn btn-ghost btn-sm"><?= __('ver_todos') ?> →</a></div>
       </div>
 
-      <!-- Stock crítico -->
       <div class="panel">
         <h2> <?= __('stock_bajo_titulo') ?></h2>
         <?php if ($datos['stock_critico']->num_rows > 0): ?>
@@ -612,7 +578,6 @@ body { padding: 0; margin: 0; }
       </div>
     </div>
 
-    <!-- ══════════════ PRODUCTOS ══════════════ -->
     <?php elseif ($seccion === 'productos'): ?>
     <div class="page-header">
       <h1> Productos</h1>
@@ -620,7 +585,6 @@ body { padding: 0; margin: 0; }
     </div>
 
     <?php if (isset($datos['editar'])): ?>
-    <!-- FORMULARIO EDITAR -->
     <div class="panel">
       <h2> <?= __('editar_producto') ?> — <?= htmlspecialchars($datos['editar']['nombre']) ?></h2>
       <form method="POST" enctype="multipart/form-data">
@@ -699,7 +663,6 @@ body { padding: 0; margin: 0; }
     </div>
 
     <?php else: ?>
-    <!-- FORMULARIO AGREGAR + LISTA -->
     <div style="display:grid; grid-template-columns: 380px 1fr; gap:1.5rem; align-items:start;">
 
       <div class="panel">
@@ -781,7 +744,6 @@ body { padding: 0; margin: 0; }
     </div>
     <?php endif; ?>
 
-    <!-- ══════════════ PEDIDOS ══════════════ -->
     <?php elseif ($seccion === 'pedidos'): ?>
     <div class="page-header">
       <h1> Pedidos</h1>
@@ -789,7 +751,6 @@ body { padding: 0; margin: 0; }
     </div>
 
     <?php if (isset($datos['pedido'])): ?>
-    <!-- DETALLE PEDIDO -->
     <?php $p = $datos['pedido']; ?>
     <div class="panel">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
@@ -860,7 +821,6 @@ body { padding: 0; margin: 0; }
     </div>
 
     <?php else: ?>
-    <!-- LISTA PEDIDOS -->
     <div class="filtros">
       <a href="admin.php?s=pedidos" class="filtro-btn <?= !isset($_GET['estado'])?'activo':'' ?>"><?= __('todos') ?></a>
       <?php foreach (['pendiente','procesando','enviado','entregado','cancelado'] as $e): ?>
@@ -903,7 +863,6 @@ body { padding: 0; margin: 0; }
     </div>
     <?php endif; ?>
 
-    <!-- ══════════════ MENSAJES ══════════════ -->
     <?php elseif ($seccion === 'mensajes'): ?>
     <div class="page-header">
       <h1> <?= __('mensajes_contacto') ?></h1>
@@ -971,7 +930,6 @@ body { padding: 0; margin: 0; }
     </div>
     <?php endif; ?>
 
-    <!-- ══════════════ CONFIGURACIÓN ══════════════ -->
     <?php elseif ($seccion === 'config'): ?>
     <div class="page-header">
       <h1> Configuración</h1>

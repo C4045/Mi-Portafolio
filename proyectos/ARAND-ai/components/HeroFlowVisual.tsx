@@ -19,10 +19,7 @@ const outputs = [
 export default function HeroFlowVisual() {
   return (
     <div className="relative mx-auto h-[420px] w-full max-w-[880px] md:h-[480px]">
-      {/* Ambient glow behind everything */}
       <div className="absolute left-1/2 top-1/2 h-[280px] w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/25 blur-[100px]" />
-
-      {/* Connecting lines */}
       <svg
         className="absolute inset-0 h-full w-full"
         viewBox="0 0 880 480"
@@ -73,8 +70,6 @@ export default function HeroFlowVisual() {
           </linearGradient>
         </defs>
       </svg>
-
-      {/* Source badges */}
       {sources.map(({ icon: Icon, label, top, left, delay }) => (
         <motion.div
           key={label}
@@ -88,8 +83,6 @@ export default function HeroFlowVisual() {
           <span className="font-mono text-[11px] text-text-secondary">{label}</span>
         </motion.div>
       ))}
-
-      {/* Central AI orb */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -103,8 +96,6 @@ export default function HeroFlowVisual() {
           <div className="absolute -inset-6 animate-spin-slow rounded-full border border-dashed border-white/[0.08]" />
         </div>
       </motion.div>
-
-      {/* Output cards */}
       {outputs.map(({ label, sub, delay }, i) => (
         <motion.div
           key={label}

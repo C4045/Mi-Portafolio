@@ -1,6 +1,3 @@
-/* =========================================================
-   icons-mount.js — Monta los iconos declarados con data-icon
-   ========================================================= */
 (function (App) {
   'use strict';
 

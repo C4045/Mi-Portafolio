@@ -1,0 +1,351 @@
+import { useState, useEffect } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useParams, useNavigate } from 'react-router-dom';
+import api from '@/lib/api';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import { formatCurrency, formatNumber } from '@/lib/utils';
+
+export function SaleFormPage() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const isEditing = !!id;
+  const [form, setForm] = useState({
+    customerId: '', issueDate: new Date().toISOString().split('T')[0],
+    dueDate: '', paymentTerm: '', currencyCode: 'PYG', exchangeRate: 1,
+    discountType: 'percentage', discountRate: 0,
+    notes: '', internalNotes: '', status: 'draft',
+  });
+  const [items, setItems] = useState([]);
+
+  const { data: customersData } = useQuery({
+    queryKey: ['customers-list'],
+    queryFn: () => api.get('/customers/list').then(r => r.data),
+  });
+
+  const { data: productsData } = useQuery({
+    queryKey: ['products-select', 'all'],
+    queryFn: () => api.get('/products', { params: { limit: 200, isActive: true } }).then(r => r.data),
+  });
+
+  const { data: saleData } = useQuery({
+    queryKey: ['sale', id],
+    queryFn: () => api.get(`/sales/${id}`).then(r => r.data),
+    enabled: !!id,
+  });
+
+  const createMutation = useMutation({
+    mutationFn: (data) => isEditing ? api.put(`/sales/${id}`, data) : api.post('/sales', data),
+    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['sales'] }); navigate('/sales'); },
+  });
+
+  const confirmMutation = useMutation({
+    mutationFn: () => api.post(`/sales/${id}/confirm`),
+    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['sales'] }); queryClient.invalidateQueries({ queryKey: ['sale', id] }); },
+  });
+
+  const customers = customersData?.data || customersData || [];
+  const products = productsData?.data || [];
+
+  useEffect(() => {
+    if (saleData?.data) {
+      const s = saleData.data;
+      setForm({
+        customerId: s.customerId, issueDate: s.issueDate?.split('T')[0] || '',
+        dueDate: s.dueDate?.split('T')[0] || '', paymentTerm: s.paymentTerm || '',
+        currencyCode: s.currencyCode || 'PYG', exchangeRate: s.exchangeRate || 1,
+        discountType: s.discountType || 'percentage', discountRate: s.discountRate || 0,
+        notes: s.notes || '', internalNotes: s.internalNotes || '', status: s.status,
+      });
+      setItems(s.items.map((i) => ({
+        id: i.id, productId: i.productId, productSku: i.product?.sku || '',
+        productName: i.product?.name || '', quantity: i.quantity,
+        unitPrice: i.unitPrice, discountRate: i.discountRate || 0,
+        taxRate: i.taxRate || 10,
+      })));
+    }
+  }, [saleData]);
+
+  const addItem = () => {
+    setItems([...items, { productId: '', productSku: '', productName: '', quantity: 1, unitPrice: 0, discountRate: 0, taxRate: 10 }]);
+  };
+
+  const removeItem = (idx) => {
+    setItems(items.filter((_, i) => i !== idx));
+  };
+
+  const updateItem = (idx, field, value) => {
+    const newItems = [...items];
+    newItems[idx] = { ...newItems[idx], [field]: value };
+
+    if (field === 'productId') {
+      const prod = products.find((p) => p.id === value);
+      if (prod) {
+        newItems[idx].productSku = prod.sku;
+        newItems[idx].productName = prod.name;
+        if (!newItems[idx].unitPrice) newItems[idx].unitPrice = prod.salePrice;
+      }
+    }
+    setItems(newItems);
+  };
+
+  const calcItemTotal = (item) => {
+    const qty = Number(item.quantity) || 0;
+    const price = Number(item.unitPrice) || 0;
+    const dr = Number(item.discountRate) || 0;
+    const tr = Number(item.taxRate) || 0;
+    const subtotal = qty * price * (1 - dr / 100);
+    const tax = subtotal * (tr / 100);
+    return { subtotal, tax, total: subtotal + tax, discount: qty * price * (dr / 100) };
+  };
+
+  const totals = items.reduce((acc, item) => {
+    const t = calcItemTotal(item);
+    return { subtotal: acc.subtotal + t.subtotal, tax: acc.tax + t.tax, total: acc.total + t.total, discount: acc.discount + t.discount };
+  }, { subtotal: 0, tax: 0, total: 0, discount: 0 });
+
+  const headerDiscount = form.discountRate > 0
+    ? (form.discountType === 'percentage' ? totals.subtotal * Number(form.discountRate) / 100 : Math.min(Number(form.discountRate), totals.subtotal))
+    : 0;
+
+  const grandTotal = totals.subtotal - headerDiscount + totals.tax;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const payload = {
+      customerId: form.customerId,
+      issueDate: form.issueDate,
+      dueDate: form.dueDate || null,
+      paymentTerm: form.paymentTerm || null,
+      currencyCode: form.currencyCode,
+      exchangeRate: Number(form.exchangeRate),
+      discountType: form.discountType,
+      discountRate: Number(form.discountRate),
+      notes: form.notes,
+      internalNotes: form.internalNotes,
+      items: items.map((item) => ({
+        productId: item.productId,
+        quantity: Number(item.quantity),
+        unitPrice: Number(item.unitPrice),
+        discountRate: Number(item.discountRate),
+        taxRate: Number(item.taxRate),
+      })),
+    };
+    createMutation.mutate(payload);
+  };
+
+  const isView = isEditing && !['draft'].includes(form.status);
+
+  return (
+    <div className="space-y-4 animate-in fade-in">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight">{isView ? 'Detalle de Venta' : isEditing ? 'Editar Venta' : 'Nueva Venta'}</h2>
+          <p className="text-sm text-muted-foreground">
+            {saleData?.data?.documentSerie}-{saleData?.data?.documentNumber}
+          </p>
+        </div>
+        <div className="flex gap-2">
+          {isView && form.status === 'draft' && (
+            <Button onClick={() => confirmMutation.mutate()} disabled={confirmMutation.isPending}>
+              Confirmar Venta
+            </Button>
+          )}
+          {isView && (
+            <Button variant="outline" onClick={() => {
+              api.post(`/sales/${id}/pdf`, {}, { responseType: 'blob' }).then(r => {
+                const url = URL.createObjectURL(new Blob([r.data]));
+                const a = document.createElement('a');
+                a.href = url; a.download = `Venta-${id}.pdf`; a.click(); URL.revokeObjectURL(url);
+              });
+            }}>
+              PDF
+            </Button>
+          )}
+          <Button variant="outline" onClick={() => navigate('/sales')}>Volver</Button>
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        <Card>
+          <CardContent className="p-5 space-y-4">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <Label>Cliente *</Label>
+                {isView ? (
+                  <p className="text-sm font-medium pt-1">{saleData?.data?.customer?.businessName}</p>
+                ) : (
+                  <select className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm" value={form.customerId} onChange={(e) => setForm({ ...form, customerId: e.target.value })} required>
+                    <option value="">Seleccionar cliente</option>
+                    {customers.map((c) => (
+                      <option key={c.id} value={c.id}>{c.businessName || `${c.firstName || ''} ${c.lastName || ''}`.trim() || c.documentNumber}</option>
+                    ))}
+                  </select>
+                )}
+              </div>
+              <div className="space-y-2">
+                <Label>Fecha Emisión</Label>
+                {isView ? <p className="text-sm pt-1">{form.issueDate}</p>
+                  : <Input type="date" value={form.issueDate} onChange={(e) => setForm({ ...form, issueDate: e.target.value })} required />}
+              </div>
+              <div className="space-y-2">
+                <Label>Vencimiento</Label>
+                {isView ? <p className="text-sm pt-1">{form.dueDate || '—'}</p>
+                  : <Input type="date" value={form.dueDate} onChange={(e) => setForm({ ...form, dueDate: e.target.value })} />}
+              </div>
+            </div>
+
+            {!isView && (
+              <>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <Label>Moneda</Label>
+                    <select className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm" value={form.currencyCode} onChange={(e) => setForm({ ...form, currencyCode: e.target.value })}>
+                      <option value="PYG">Guaraníes (PYG)</option>
+                      <option value="USD">Dólares (USD)</option>
+                      <option value="BRL">Reales (BRL)</option>
+                      <option value="ARS">Pesos (ARS)</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Tipo Cambio</Label>
+                    <Input type="number" min="0" step="0.01" value={form.exchangeRate} onChange={(e) => setForm({ ...form, exchangeRate: e.target.value })} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Plazo</Label>
+                    <Input value={form.paymentTerm} onChange={(e) => setForm({ ...form, paymentTerm: e.target.value })} placeholder="Ej: 30 días" />
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <Label>Dscto. Global</Label>
+                    <Input type="number" min="0" step="0.1" value={form.discountRate} onChange={(e) => setForm({ ...form, discountRate: e.target.value })} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Tipo Dscto.</Label>
+                    <select className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm" value={form.discountType} onChange={(e) => setForm({ ...form, discountType: e.target.value })}>
+                      <option value="percentage">Porcentaje</option>
+                      <option value="fixed">Monto Fijo</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>&nbsp;</Label>
+                    <p className="text-xs text-muted-foreground pt-2">{headerDiscount > 0 ? `Dscto: ${formatCurrency(headerDiscount)}` : ''}</p>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label>Notas</Label>
+                  <textarea className="flex min-h-[60px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm" value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} />
+                </div>
+              </>
+            )}
+          </CardContent>
+        </Card>
+        <Card className="mt-4">
+          <CardContent className="p-5">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-semibold">Productos</h3>
+              {!isView && <Button type="button" variant="outline" size="sm" onClick={addItem}>+ Agregar Producto</Button>}
+            </div>
+
+            {items.length === 0 ? (
+              <p className="text-sm text-muted-foreground text-center py-8">Agregá productos a la venta</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="text-left text-xs text-muted-foreground border-b bg-muted/30">
+                      <th className="px-3 py-2 font-medium">#</th>
+                      <th className="px-3 py-2 font-medium min-w-48">Producto</th>
+                      <th className="px-3 py-2 font-medium text-right">Cantidad</th>
+                      <th className="px-3 py-2 font-medium text-right">P. Unit.</th>
+                      <th className="px-3 py-2 font-medium text-right">Dscto %</th>
+                      <th className="px-3 py-2 font-medium text-right">Subtotal</th>
+                      <th className="px-3 py-2 font-medium text-right">IVA</th>
+                      <th className="px-3 py-2 font-medium text-right">Total</th>
+                      {!isView && <th className="px-3 py-2"></th>}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {items.map((item, idx) => {
+                      const t = calcItemTotal(item);
+                      return (
+                        <tr key={idx} className="border-b last:border-0 hover:bg-muted/20">
+                          <td className="px-3 py-2 text-muted-foreground">{idx + 1}</td>
+                          <td className="px-3 py-2">
+                            {isView ? (
+                              <div><p className="font-medium">{item.productName}</p><p className="text-xs text-muted-foreground">{item.productSku}</p></div>
+                            ) : (
+                              <select className="flex h-8 w-full rounded-md border border-input bg-transparent px-2 text-xs" value={item.productId} onChange={(e) => updateItem(idx, 'productId', e.target.value)} required>
+                                <option value="">Seleccionar...</option>
+                                {products.map((p) => (
+                                  <option key={p.id} value={p.id}>{p.sku} - {p.name}</option>
+                                ))}
+                              </select>
+                            )}
+                          </td>
+                          <td className="px-3 py-2">
+                            {isView ? <span className="text-right block">{formatNumber(item.quantity)}</span>
+                              : <Input type="number" min="0.01" step="0.01" className="h-8 w-20 text-right ml-auto" value={item.quantity} onChange={(e) => updateItem(idx, 'quantity', e.target.value)} required />}
+                          </td>
+                          <td className="px-3 py-2">
+                            {isView ? <span className="text-right block">{formatCurrency(item.unitPrice)}</span>
+                              : <Input type="number" min="0" step="100" className="h-8 w-24 text-right ml-auto" value={item.unitPrice} onChange={(e) => updateItem(idx, 'unitPrice', e.target.value)} required />}
+                          </td>
+                          <td className="px-3 py-2">
+                            {isView ? <span className="text-right block">{item.discountRate}%</span>
+                              : <Input type="number" min="0" max="100" step="1" className="h-8 w-16 text-right ml-auto" value={item.discountRate} onChange={(e) => updateItem(idx, 'discountRate', e.target.value)} />}
+                          </td>
+                          <td className="px-3 py-2 text-right font-mono text-xs">{formatCurrency(t.subtotal)}</td>
+                          <td className="px-3 py-2 text-right font-mono text-xs">{formatCurrency(t.tax)}</td>
+                          <td className="px-3 py-2 text-right font-mono font-medium">{formatCurrency(t.total)}</td>
+                          {!isView && (
+                            <td className="px-3 py-2">
+                              <Button type="button" variant="ghost" size="icon" className="h-7 w-7 text-red-500" onClick={() => removeItem(idx)}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                              </Button>
+                            </td>
+                          )}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            {items.length > 0 && (
+              <div className="border-t pt-4 mt-4 flex justify-end">
+                <div className="space-y-1 w-64">
+                  {[
+                    { label: 'Subtotal', value: totals.subtotal },
+                    { label: 'Descuento', value: -(totals.discount + headerDiscount) },
+                    { label: 'IVA (10%)', value: totals.tax },
+                    { label: 'TOTAL', value: grandTotal, bold: true },
+                  ].map((t) => (
+                    <div key={t.label} className="flex justify-between text-sm">
+                      <span className={t.bold ? 'font-bold' : 'text-muted-foreground'}>{t.label}</span>
+                      <span className={`font-mono ${t.bold ? 'font-bold text-base' : ''}`}>{formatCurrency(t.value)}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {!isView && (
+          <div className="flex justify-end gap-2 mt-4">
+            <Button type="button" variant="outline" onClick={() => navigate('/sales')}>Cancelar</Button>
+            <Button type="submit" disabled={createMutation.isPending || items.length === 0}>
+              {createMutation.isPending ? 'Guardando...' : isEditing ? 'Actualizar Venta' : 'Crear Venta'}
+            </Button>
+          </div>
+        )}
+      </form>
+    </div>
+  );
+}

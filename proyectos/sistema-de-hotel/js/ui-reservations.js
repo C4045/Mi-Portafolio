@@ -1,7 +1,3 @@
-/* =========================================================
-   ui-reservations.js — Listado, filtros, formulario y detalle de reservas
-   Namespace: App.UI (extensión)
-   ========================================================= */
 (function (App) {
   'use strict';
 
@@ -162,9 +158,6 @@
     App.UI.renderAll();
   }
 
-  /* ---------------------------------------------------------
-     DETALLE
-  --------------------------------------------------------- */
   function abrirDetalle(codigo) {
     const r = D().getReservaByCodigo(codigo);
     if (!r) return;
@@ -226,9 +219,6 @@
     });
   }
 
-  /* ---------------------------------------------------------
-     FORMULARIO (crear / editar)
-  --------------------------------------------------------- */
   function roomOptions(selected) {
     return D().ROOM_CATALOG.map((room) => `
       <option value="${room.numero}" ${Number(selected) === room.numero ? 'selected' : ''}>

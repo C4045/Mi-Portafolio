@@ -1,7 +1,3 @@
-/* =========================================================
-   data.js — Catálogo de habitaciones, estado global y cálculos derivados
-   Namespace: App.Data
-   ========================================================= */
 (function (App) {
   'use strict';
 

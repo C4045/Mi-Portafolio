@@ -2,7 +2,6 @@
 require_once __DIR__ . '/auth.php';
 requerir_admin();
 
-// Claves con imagen (se manejan con upload)
 $claves_imagen = ['hero_imagen', 'restaurante_foto'];
 $claves_texto = [
     'restaurante_nombre', 'hero_titulo', 'hero_subtitulo',
@@ -16,19 +15,16 @@ $msg = '';
 $err = '';
 
 if ($_POST) {
-    // Guardar campos de texto
     foreach ($claves_texto as $clave) {
         $valor = trim($_POST[$clave] ?? '');
         $stmt = $pdo->prepare("INSERT INTO restaurante_settings (clave, valor) VALUES (?, ?) ON DUPLICATE KEY UPDATE valor = VALUES(valor)");
         $stmt->execute([$clave, $valor]);
     }
 
-    // Guardar imagenes subidas
     foreach ($claves_imagen as $clave) {
         if (isset($_FILES[$clave]) && $_FILES[$clave]['error'] === UPLOAD_ERR_OK) {
             $ext = strtolower(pathinfo($_FILES[$clave]['name'], PATHINFO_EXTENSION));
             if (in_array($ext, ['jpg','jpeg','png','gif','webp'])) {
-                // Borrar imagen anterior
                 $stmt = $pdo->prepare("SELECT valor FROM restaurante_settings WHERE clave = ?");
                 $stmt->execute([$clave]);
                 $old = $stmt->fetchColumn();
@@ -43,7 +39,6 @@ if ($_POST) {
                 $err = 'Formato no valido para ' . $clave . ' (solo jpg, png, gif, webp)';
             }
         }
-        // Si envian "eliminar" via checkbox
         if (isset($_POST[$clave . '_eliminar']) && $_POST[$clave . '_eliminar'] === '1') {
             $stmt = $pdo->prepare("SELECT valor FROM restaurante_settings WHERE clave = ?");
             $stmt->execute([$clave]);

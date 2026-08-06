@@ -63,9 +63,7 @@ class ConfigManager:
                 cls._instance = instance
         return cls._instance
 
-    # ------------------------------------------------------------------ #
     # Carga / persistencia
-    # ------------------------------------------------------------------ #
     def _load(self) -> dict[str, Any]:
         CONFIG_PATH.parent.mkdir(parents=True, exist_ok=True)
         if CONFIG_PATH.exists():
@@ -97,9 +95,7 @@ class ConfigManager:
                 result[key] = value
         return result
 
-    # ------------------------------------------------------------------ #
     # API pública
-    # ------------------------------------------------------------------ #
     def get(self, *keys: str, default: Any = None) -> Any:
         """Obtiene un valor anidado. Ej: ``config.get("password_generator", "longitud_default")``."""
         node: Any = self._data

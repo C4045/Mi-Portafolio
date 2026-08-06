@@ -1,4 +1,3 @@
-// Theme Toggle
 const themeToggle = document.getElementById('themeToggle');
 if (themeToggle) {
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -11,7 +10,6 @@ if (themeToggle) {
     });
 }
 
-// Navbar Toggle
 const navToggle = document.getElementById('navToggle');
 const navMenu = document.getElementById('navMenu');
 if (navToggle && navMenu) {
@@ -28,7 +26,6 @@ if (navToggle && navMenu) {
     });
 }
 
-// Scroll to Top
 const scrollBtn = document.getElementById('scrollToTop');
 if (scrollBtn) {
     window.addEventListener('scroll', () => {
@@ -39,7 +36,6 @@ if (scrollBtn) {
     });
 }
 
-// Toast System
 function showToast(message, type = 'info', title = '') {
     const container = document.getElementById('toastContainer');
     if (!container) return;
@@ -59,7 +55,6 @@ function showToast(message, type = 'info', title = '') {
     }, 4000);
 }
 
-// Modal helpers
 function openModal(id) {
     const modal = document.getElementById(id);
     if (!modal) return;
@@ -76,7 +71,6 @@ function closeModal(id) {
     document.body.classList.remove('no-scroll');
 }
 
-// Close modals on overlay click
 document.querySelectorAll('.modal').forEach(modal => {
     modal.addEventListener('click', (e) => {
         if (e.target === modal || e.target.classList.contains('modal__overlay')) {
@@ -85,7 +79,6 @@ document.querySelectorAll('.modal').forEach(modal => {
     });
 });
 
-// Close modals with Escape
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         document.querySelectorAll('.modal.show').forEach(m => closeModal(m.id));

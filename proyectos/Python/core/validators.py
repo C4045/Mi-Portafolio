@@ -21,9 +21,7 @@ class ValidationError(Exception):
     """Error de validación de datos de entrada del usuario."""
 
 
-# ---------------------------------------------------------------------- #
 # Validaciones numéricas y de texto genéricas
-# ---------------------------------------------------------------------- #
 def validar_numero(valor: str, campo: str = "valor") -> float:
     valor = (valor or "").strip().replace(",", ".")
     if not valor:
@@ -50,9 +48,7 @@ def validar_no_vacio(valor: str, campo: str = "campo") -> str:
     return valor.strip()
 
 
-# ---------------------------------------------------------------------- #
 # Evaluador seguro de expresiones aritméticas (para la calculadora)
-# ---------------------------------------------------------------------- #
 _OPERADORES_PERMITIDOS = {
     ast.Add: operator.add,
     ast.Sub: operator.sub,

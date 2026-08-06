@@ -44,9 +44,7 @@ class CalculadoraFrame(ctk.CTkFrame):
         self._actualizar_historial()
         self._actualizar_estadisticas()
 
-    # ------------------------------------------------------------------ #
     # Construcción de la interfaz
-    # ------------------------------------------------------------------ #
     def _construir_ui(self) -> None:
         self.grid_columnconfigure(0, weight=3)
         self.grid_columnconfigure(1, weight=2)
@@ -162,9 +160,7 @@ class CalculadoraFrame(ctk.CTkFrame):
 
         return panel
 
-    # ------------------------------------------------------------------ #
     # Interacción
-    # ------------------------------------------------------------------ #
     def _pulsar(self, tecla: str) -> None:
         acciones_especiales = {
             "C": self._limpiar_pantalla,
@@ -239,9 +235,7 @@ class CalculadoraFrame(ctk.CTkFrame):
             return str(int(valor))
         return f"{valor:.{decimales}f}".rstrip("0").rstrip(".")
 
-    # ------------------------------------------------------------------ #
     # Historial / estadísticas / exportación
-    # ------------------------------------------------------------------ #
     def _actualizar_historial(self) -> None:
         for widget in self.historial_scroll.winfo_children():
             widget.destroy()

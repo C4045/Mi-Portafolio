@@ -31,9 +31,7 @@ class CalculadoraEngine:
     def __init__(self) -> None:
         self._memoria: float = 0.0
 
-    # ------------------------------------------------------------------ #
     # Operación principal
-    # ------------------------------------------------------------------ #
     def calcular(self, expresion: str, guardar_historial: bool = True) -> ResultadoCalculo:
         """Evalúa una expresión matemática de forma segura y la registra."""
         resultado = evaluar_expresion_segura(expresion)
@@ -52,9 +50,7 @@ class CalculadoraEngine:
         except Exception:
             logger.exception("No se pudo guardar el cálculo en el historial.")
 
-    # ------------------------------------------------------------------ #
     # Memoria (M+, M-, MR, MC)
-    # ------------------------------------------------------------------ #
     def memoria_sumar(self, valor: float) -> None:
         self._memoria += valor
 
@@ -71,9 +67,7 @@ class CalculadoraEngine:
     def memoria(self) -> float:
         return self._memoria
 
-    # ------------------------------------------------------------------ #
     # Historial / estadísticas
-    # ------------------------------------------------------------------ #
     @staticmethod
     def obtener_historial(limite: int = 100) -> list[dict[str, Any]]:
         return db.fetch_all("calculadora_historial", limit=limite)

@@ -1,8 +1,3 @@
-/* ============================================
-   TIENDA NOIR — Dark Luxury E-Commerce
-   Palette: Obsidian bg, Ivory text, Gold accent
-   Tipo: Playfair Display (display) + DM Sans (body)
-   ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
@@ -68,9 +63,6 @@ body {
 
 a { color:inherit; text-decoration:none; }
 
-/* ====================================================
-   AMBIENT BACKGROUND — diagonal gold shimmer
-   ==================================================== */
 body::before {
   content: '';
   position: fixed;
@@ -84,9 +76,6 @@ body::before {
 
 .container, .header, footer { position:relative; z-index:1; }
 
-/* ====================================================
-   HEADER / NAV
-   ==================================================== */
 .header {
   display: flex;
   justify-content: space-between;
@@ -119,18 +108,12 @@ body::before {
   flex-wrap: wrap;
 }
 
-/* ====================================================
-   MAIN CONTAINER
-   ==================================================== */
 .container {
   max-width: 1300px;
   margin: 0 auto;
   padding: 2.5rem 2rem;
 }
 
-/* ====================================================
-   BUTTONS
-   ==================================================== */
 .btn-carrito {
   display: inline-flex;
   align-items: center;
@@ -358,9 +341,6 @@ body::before {
 
 .btn-grande { width:100%; padding:.95rem; font-size:.95rem; margin-top:1rem; }
 
-/* ====================================================
-   INPUTS & FORMS
-   ==================================================== */
 input, textarea, select {
   font-family: 'DM Sans', sans-serif;
   font-size: .9rem;
@@ -395,9 +375,6 @@ label {
 .form-row { display:flex; gap:1rem; }
 .form-row .form-group { flex:1; }
 
-/* ====================================================
-   CARDS
-   ==================================================== */
 .card {
   background: var(--surface);
   border-radius: var(--radius-lg);
@@ -406,9 +383,6 @@ label {
   box-shadow: var(--shadow-dark);
 }
 
-/* ====================================================
-   SEARCH BAR
-   ==================================================== */
 .barra-busqueda {
   display: flex;
   gap: .75rem;
@@ -439,9 +413,6 @@ label {
   width: auto;
 }
 
-/* ====================================================
-   HERO
-   ==================================================== */
 .hero {
   position: relative;
   overflow: hidden;
@@ -456,7 +427,6 @@ label {
   justify-content: flex-end;
 }
 
-/* Geometric SVG art background */
 .hero-art {
   position: absolute;
   inset: 0;
@@ -499,9 +469,6 @@ label {
   position: relative;
 }
 
-/* ====================================================
-   SECTION TITLE
-   ==================================================== */
 .section-title {
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 1.5rem;
@@ -520,9 +487,6 @@ label {
   background: linear-gradient(90deg, var(--border) 0%, transparent 100%);
 }
 
-/* ====================================================
-   PRODUCT GRID
-   ==================================================== */
 .productos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
@@ -546,7 +510,6 @@ label {
 }
 .producto-card.agotado { opacity: .45; }
 
-/* Product image area */
 .producto-img {
   position: relative;
   height: 220px;
@@ -560,13 +523,11 @@ label {
 }
 .producto-card:hover .producto-img img { transform: scale(1.06); }
 
-/* SVG placeholder art */
 .img-placeholder {
   width:100%; height:100%;
   display:flex; align-items:center; justify-content:center;
 }
 
-/* Gradient overlay on image */
 .producto-img::after {
   content:'';
   position:absolute;
@@ -575,7 +536,6 @@ label {
   pointer-events:none;
 }
 
-/* Badges */
 .badge {
   background: var(--danger);
   color: #fff;
@@ -597,7 +557,6 @@ label {
   text-transform:uppercase;
 }
 
-/* Product info */
 .producto-info {
   padding: 1.25rem;
   display:flex; flex-direction:column; flex:1; gap:.4rem;
@@ -628,7 +587,6 @@ label {
 .producto-stock { font-size:.75rem; color:var(--muted); font-weight:500; }
 .stock-critico  { color:var(--danger) !important; font-weight:700 !important; }
 
-/* Qty control */
 .cantidad-control {
   display:flex; align-items:center; gap:.5rem;
   margin:.4rem 0;
@@ -643,9 +601,6 @@ label {
   border-radius:var(--radius-xs);
 }
 
-/* ====================================================
-   CART PAGE
-   ==================================================== */
 .carrito-item {
   display:flex; justify-content:space-between; align-items:center;
   padding:1.1rem 0;
@@ -669,9 +624,6 @@ label {
 .total-precio { color:var(--gold); }
 .carrito-acciones { display:flex; gap:.75rem; justify-content:flex-end; margin-top:1rem; flex-wrap:wrap; }
 
-/* ====================================================
-   TABLE
-   ==================================================== */
 .compra-resumen { margin-bottom:2rem; overflow-x:auto; }
 table { width:100%; border-collapse:collapse; }
 th,td { padding:.85rem 1rem; text-align:left; border-bottom:1px solid var(--border); font-size:.86rem; }
@@ -679,9 +631,6 @@ th { background:var(--bg3); font-weight:700; color:var(--muted); text-transform:
 .fila-total { background:var(--gold-glow); color:var(--gold); font-weight:700; font-size:.95rem; }
 .formulario-compra { margin-top:2rem; padding-top:2rem; border-top:1px solid var(--border); }
 
-/* ====================================================
-   MESSAGES
-   ==================================================== */
 .mensaje {
   padding:.85rem 1.1rem; border-radius:var(--radius);
   margin-bottom:1.25rem; font-size:.86rem; font-weight:500;
@@ -690,9 +639,6 @@ th { background:var(--bg3); font-weight:700; color:var(--muted); text-transform:
 .mensaje-exito { background:rgba(52,211,153,.1); color:#34D399; border:1px solid rgba(52,211,153,.25); }
 .mensaje-error  { background:rgba(255,77,109,.1); color:var(--danger); border:1px solid rgba(255,77,109,.25); }
 
-/* ====================================================
-   EMPTY STATE
-   ==================================================== */
 .vacio,.vacio-estado { text-align:center; padding:3rem 1.5rem; color:var(--muted); grid-column:1/-1; }
 .vacio-estado {
   background:var(--surface); border-radius:var(--radius-lg);
@@ -701,9 +647,6 @@ th { background:var(--bg3); font-weight:700; color:var(--muted); text-transform:
 .vacio-estado p { font-size:1.05rem; font-weight:500; }
 .vacio-estado a { display:inline-block; margin-top:1rem; color:var(--gold); font-weight:700; }
 
-/* ====================================================
-   ADMIN STATS
-   ==================================================== */
 .stats-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:1rem; margin-bottom:2rem; }
 .stat-card {
   background:var(--surface); border-radius:var(--radius-lg);
@@ -717,9 +660,6 @@ th { background:var(--bg3); font-weight:700; color:var(--muted); text-transform:
 .stat-numero { font-size:2rem; font-weight:800; color:var(--ivory); letter-spacing:-.03em; }
 .stat-label  { color:var(--muted); margin-top:.35rem; font-size:.78rem; font-weight:500; }
 
-/* ====================================================
-   PRODUCT DETAIL
-   ==================================================== */
 .producto-detalle { display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; align-items:start; }
 .galeria-principal { background:var(--surface); border-radius:var(--radius-lg); overflow:hidden; border:1px solid var(--border); }
 .galeria-principal img { width:100%; height:400px; object-fit:contain; display:block; background:var(--bg3); }
@@ -733,9 +673,6 @@ th { background:var(--bg3); font-weight:700; color:var(--muted); text-transform:
 .info-stock.agotado-badge { background:rgba(255,77,109,.1); color:var(--danger); border:1px solid rgba(255,77,109,.25); }
 .relacionados-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1.25rem; }
 
-/* ====================================================
-   LOGIN
-   ==================================================== */
 .login-wrapper { min-height:100vh; display:flex; align-items:center; justify-content:center; background:var(--bg); padding:2rem; }
 .login-card { background:var(--surface); border-radius:var(--radius-xl,24px); padding:2.5rem; width:100%; max-width:420px; border:1px solid var(--border); box-shadow:var(--shadow-dark); }
 .login-card h1,.login-card h2 { font-family:'Playfair Display',serif; font-size:1.7rem; font-weight:900; color:var(--ivory); text-align:center; margin-bottom:.35rem; }
@@ -747,9 +684,6 @@ th { background:var(--bg3); font-weight:700; color:var(--muted); text-transform:
 .volver-tienda { text-align:center; margin-top:1.25rem; font-size:.82rem; }
 .volver-tienda a { color:var(--gold); }
 
-/* ====================================================
-   FOOTER
-   ==================================================== */
 footer {
   text-align:center; padding:2.5rem 1rem;
   color:var(--muted2); font-size:.78rem;
@@ -757,9 +691,6 @@ footer {
   margin-top:4rem; position:relative; z-index:1;
 }
 
-/* ====================================================
-   RESPONSIVE
-   ==================================================== */
 @media (max-width:900px) {
   .producto-detalle { grid-template-columns:1fr; }
   .galeria-principal img { height:300px; }

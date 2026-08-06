@@ -14,7 +14,6 @@
 </head>
 <body>
 
-<!-- ============ SPRITE DE ICONOS (oculto) ============ -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="icon-sun" viewBox="0 0 24 24"><path d="M12 4V2M12 22v-2M4.93 4.93 3.51 3.51M20.49 20.49l-1.42-1.42M4 12H2M22 12h-2M4.93 19.07l-1.42 1.42M20.49 3.51l-1.42 1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2"/></symbol>
@@ -37,7 +36,6 @@
 
 <div class="app">
 
-  <!-- ============ ENCABEZADO ============ -->
   <header class="app-header">
     <div class="brand">
       <span class="brand-mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24"><use href="#icon-check"/></svg></span>
@@ -51,7 +49,6 @@
     </button>
   </header>
 
-  <!-- ============ RESUMEN / PROGRESO ============ -->
   <section class="progress-card" aria-label="Resumen de progreso">
     <div class="progress-ring-wrap">
       <svg class="progress-ring" width="76" height="76" viewBox="0 0 76 76" aria-hidden="true">
@@ -79,13 +76,11 @@
     </div>
   </section>
 
-  <!-- ============ BUSCADOR ============ -->
   <div class="search-bar">
     <svg width="17" height="17" aria-hidden="true"><use href="#icon-search"/></svg>
     <input type="search" id="searchInput" placeholder="Buscar por texto o categoría…" aria-label="Buscar tareas">
   </div>
 
-  <!-- ============ FORMULARIO: AGREGAR TAREA ============ -->
   <form id="addForm" class="add-form" autocomplete="off">
     <div class="add-form__row">
       <input type="text" id="tareaInput" class="add-form__text" placeholder="Escribe una nueva tarea…" maxlength="140" aria-label="Texto de la nueva tarea" required>
@@ -119,7 +114,6 @@
     </div>
   </form>
 
-  <!-- ============ FILTROS ============ -->
   <div class="toolbar">
     <div class="filter-pills" role="tablist" aria-label="Filtrar tareas">
       <button class="pill is-active" data-filter="todas" role="tab" aria-selected="true">Todas <span class="pill-count" id="countTodas">0</span></button>
@@ -137,17 +131,14 @@
     </div>
   </div>
 
-  <!-- ============ LISTA DE TAREAS ============ -->
   <ul id="listaTareas" class="task-list"></ul>
 
-  <!-- ============ ESTADO VACÍO ============ -->
   <div id="emptyState" class="empty-state" hidden>
     <svg width="40" height="40" aria-hidden="true"><use href="#icon-inbox"/></svg>
     <p class="empty-state__title" id="emptyTitle">Aún no tienes tareas</p>
     <p class="empty-state__subtitle" id="emptySubtitle">Agrega tu primera tarea desde el campo de arriba.</p>
   </div>
 
-  <!-- ============ ACCIONES MASIVAS ============ -->
   <footer class="app-footer">
     <button id="limpiarCompletadasBtn" class="btn btn--ghost" type="button">
       <svg width="15" height="15"><use href="#icon-check"/></svg>
@@ -161,7 +152,6 @@
 
 </div>
 
-<!-- ============ CONTENEDOR DE NOTIFICACIONES ============ -->
 <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
 <script src="js/storage.js"></script>

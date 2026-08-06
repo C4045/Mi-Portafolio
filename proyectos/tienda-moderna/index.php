@@ -56,7 +56,6 @@ $iconos = ['','','','','','','',''];
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <h1> <?= __('tienda_nombre') ?></h1>
   <div class="header-actions">
@@ -98,7 +97,6 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
   <div class="gear gear-bl"></div>
   <div class="gear gear-br"></div>
 
-  <!-- HERO con arte generativo -->
   <div class="hero">
     <!-- Arte SVG generativo de fondo -->
     <div class="hero-art">
@@ -118,27 +116,20 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
             <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
           </linearGradient>
         </defs>
-        <!-- Ambient glow -->
         <rect width="1200" height="400" fill="url(#rg1)"/>
         <rect width="1200" height="400" fill="url(#rg2)"/>
-        <!-- Geometric rings -->
         <circle cx="980" cy="100" r="180" fill="none" stroke="#C9A84C" stroke-width="0.8" stroke-opacity="0.18"/>
         <circle cx="980" cy="100" r="130" fill="none" stroke="#C9A84C" stroke-width="0.5" stroke-opacity="0.12"/>
         <circle cx="980" cy="100" r="80"  fill="none" stroke="#C9A84C" stroke-width="0.5" stroke-opacity="0.12"/>
         <circle cx="980" cy="100" r="35"  fill="none" stroke="#E8C97A" stroke-width="1"   stroke-opacity="0.3"/>
-        <!-- Inner diamond -->
         <polygon points="980,68 1012,100 980,132 948,100" fill="none" stroke="#E8C97A" stroke-width="1.2" stroke-opacity="0.35"/>
-        <!-- Cross hairs -->
         <line x1="920" y1="100" x2="1040" y2="100" stroke="#C9A84C" stroke-width="0.5" stroke-opacity="0.25"/>
         <line x1="980" y1="40"  x2="980"  y2="160" stroke="#C9A84C" stroke-width="0.5" stroke-opacity="0.25"/>
-        <!-- Corner accent lines -->
         <line x1="0" y1="0" x2="200" y2="0"   stroke="url(#lineGold)" stroke-width="1"/>
         <line x1="0" y1="400" x2="200" y2="400" stroke="url(#lineGold)" stroke-width="1"/>
-        <!-- Grid dots -->
         <?php for($gy=40;$gy<=360;$gy+=40): for($gx=40;$gx<=700;$gx+=60): ?>
         <circle cx="<?php echo $gx; ?>" cy="<?php echo $gy; ?>" r="1" fill="#C9A84C" fill-opacity="<?php echo round(0.04+($gx/700)*0.06,3); ?>"/>
         <?php endfor; endfor; ?>
-        <!-- Diagonal accent lines -->
         <line x1="1050" y1="0" x2="1200" y2="150" stroke="#C9A84C" stroke-width="0.6" stroke-opacity="0.15"/>
         <line x1="1100" y1="0" x2="1200" y2="100" stroke="#C9A84C" stroke-width="0.4" stroke-opacity="0.1"/>
         <line x1="1000" y1="400" x2="1200" y2="250" stroke="#C9A84C" stroke-width="0.6" stroke-opacity="0.12"/>
@@ -171,12 +162,10 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
     <?php endif; ?>
   </form>
 
-  <!-- TÍTULO -->
   <p class="section-title">
     <?php echo $busqueda ? sprintf(__('resultados_para'), $busqueda) : __('productos_destacados'); ?>
   </p>
 
-  <!-- GRID -->
   <div class="productos-grid">
     <?php if ($result->num_rows > 0):
       $idx = 0;
@@ -201,15 +190,12 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
                     </radialGradient>
                   </defs>
                   <rect width="280" height="220" fill="url(#pg<?php echo $idx; ?>)"/>
-                  <!-- Rings -->
                   <circle cx="140" cy="100" r="75" fill="none" stroke="<?php echo $p[1]; ?>" stroke-width="0.7" stroke-opacity="0.3"/>
                   <circle cx="140" cy="100" r="52" fill="none" stroke="<?php echo $p[1]; ?>" stroke-width="0.5" stroke-opacity="0.25"/>
                   <circle cx="140" cy="100" r="30" fill="none" stroke="<?php echo $p[1]; ?>" stroke-width="1"   stroke-opacity="0.4"/>
-                  <!-- Diamond -->
                   <polygon points="140,72 165,100 140,128 115,100"
                            fill="none" stroke="<?php echo $p[1]; ?>"
                            stroke-width="1" stroke-opacity="0.5"/>
-                  <!-- Corner marks -->
                   <line x1="10" y1="10" x2="35" y2="10" stroke="<?php echo $p[1]; ?>" stroke-width="1.5" stroke-opacity="0.4"/>
                   <line x1="10" y1="10" x2="10" y2="35" stroke="<?php echo $p[1]; ?>" stroke-width="1.5" stroke-opacity="0.4"/>
                   <line x1="270" y1="10" x2="245" y2="10" stroke="<?php echo $p[1]; ?>" stroke-width="1.5" stroke-opacity="0.4"/>
@@ -218,7 +204,6 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
                   <line x1="10" y1="210" x2="10" y2="185" stroke="<?php echo $p[1]; ?>" stroke-width="1.5" stroke-opacity="0.4"/>
                   <line x1="270" y1="210" x2="245" y2="210" stroke="<?php echo $p[1]; ?>" stroke-width="1.5" stroke-opacity="0.4"/>
                   <line x1="270" y1="210" x2="270" y2="185" stroke="<?php echo $p[1]; ?>" stroke-width="1.5" stroke-opacity="0.4"/>
-                  <!-- Center icon -->
                   <text x="140" y="108" text-anchor="middle" font-size="28" dominant-baseline="middle"><?php echo $ico; ?></text>
                 </svg>
               </div>

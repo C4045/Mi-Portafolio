@@ -79,9 +79,7 @@ class Database:
             conn.executescript(SCHEMA)
         logger.debug("Esquema de base de datos verificado en %s", self.db_path)
 
-    # ------------------------------------------------------------------ #
     # Operaciones genéricas
-    # ------------------------------------------------------------------ #
     def insert(self, table: str, values: dict[str, Any]) -> int:
         """Inserta una fila y devuelve su ``id`` autogenerado."""
         columns = ", ".join(values.keys())

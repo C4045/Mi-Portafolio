@@ -1,7 +1,6 @@
 <?php
 require_once 'config.php';
 
-// Búsqueda y filtrado
 $busqueda = isset($_GET['buscar']) ? limpiar($_GET['buscar']) : '';
 $orden = isset($_GET['orden']) ? limpiar($_GET['orden']) : 'reciente';
 
@@ -66,7 +65,6 @@ $total_carrito = array_sum($_SESSION['carrito']);
     <div class="gear gear-bl"></div>
     <div class="gear gear-br"></div>
 
-    <!-- Mensajes -->
     <?php if (isset($_GET['mensaje'])): ?>
       <div class="mensaje mensaje-exito"> <?php echo limpiar($_GET['mensaje']); ?></div>
     <?php endif; ?>
@@ -89,7 +87,6 @@ $total_carrito = array_sum($_SESSION['carrito']);
       <?php endif; ?>
     </form>
 
-    <!-- Productos -->
     <div class="productos-grid">
       <?php if ($result->num_rows > 0): ?>
         <?php while ($row = $result->fetch_assoc()): ?>

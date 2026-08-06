@@ -1,7 +1,3 @@
-/* =========================================================
-   icons.js — Set de iconos SVG en línea (estilo stroke 1.75px)
-   Namespace: App.Icons
-   ========================================================= */
 (function (App) {
   'use strict';
 

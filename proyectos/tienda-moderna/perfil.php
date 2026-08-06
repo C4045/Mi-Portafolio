@@ -15,7 +15,6 @@ $msg = ''; $err = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $accion = $_POST['accion'] ?? '';
 
-    // Actualizar datos
     if ($accion === 'actualizar_datos') {
         $nombre = limpiar($_POST['nombre']);
         $telefono = limpiar($_POST['telefono']);
@@ -24,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $up = $conn->prepare("UPDATE clientes SET nombre=?, telefono=? WHERE email=?");
             $up->bind_param("sss", $nombre, $telefono, $email); $up->execute();
             $_SESSION['cliente_nombre'] = $nombre;
-            // Foto
             if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
                 $ext = strtolower(pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION));
                 if (in_array($ext, ['jpg','jpeg','png','gif','webp'])) {

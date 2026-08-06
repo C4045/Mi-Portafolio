@@ -1,7 +1,3 @@
-/* =========================================================
-   reservations.js — Lógica de negocio de reservas
-   Namespace: App.Reservations
-   ========================================================= */
 (function (App) {
   'use strict';
 

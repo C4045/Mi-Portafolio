@@ -13,9 +13,7 @@ import customtkinter as ctk
 
 from core.config_manager import config
 
-# ---------------------------------------------------------------------- #
 # Paleta y tipografía
-# ---------------------------------------------------------------------- #
 PALETTE = {
     "primary": "#1F6AA5",
     "primary_hover": "#144870",
@@ -38,9 +36,7 @@ def font(size: int = 13, weight: str = "normal") -> ctk.CTkFont:
     return ctk.CTkFont(family=FONT_FAMILY, size=size, weight=weight)
 
 
-# ---------------------------------------------------------------------- #
 # Inicialización global del tema
-# ---------------------------------------------------------------------- #
 def aplicar_tema_global() -> None:
     """Aplica el modo de apariencia y el tema de color guardados en config."""
     ctk.set_appearance_mode(config.get("appearance_mode", default="dark"))
@@ -63,9 +59,7 @@ def alternar_modo_oscuro() -> str:
     return nuevo
 
 
-# ---------------------------------------------------------------------- #
 # Componentes reutilizables
-# ---------------------------------------------------------------------- #
 class SectionCard(ctk.CTkFrame):
     """Tarjeta con título, usada para agrupar secciones (historial, stats...)."""
 

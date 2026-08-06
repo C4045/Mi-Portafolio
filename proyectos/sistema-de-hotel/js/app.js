@@ -1,6 +1,3 @@
-/* =========================================================
-   app.js — Inicialización y wiring general de la aplicación
-   ========================================================= */
 (function (App) {
   'use strict';
 
@@ -17,7 +14,6 @@
   }
   App.UI.renderAll = renderAll;
 
-  /* ---------------- Vistas / navegación ---------------- */
   function setView(view) {
     D().state.vista = view;
     $$('.nav-item').forEach((btn) => btn.classList.toggle('active', btn.dataset.view === view));
@@ -35,7 +31,6 @@
     $$('.nav-item').forEach((btn) => btn.addEventListener('click', () => setView(btn.dataset.view)));
   }
 
-  /* ---------------- Tema claro / oscuro ---------------- */
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     const icon = $('#themeIcon');
@@ -52,7 +47,6 @@
     });
   }
 
-  /* ---------------- Buscador y filtros ---------------- */
   function wireFilters() {
     const rerender = () => { App.UI.renderReservations(); App.UI.renderHistory(); };
     $('#searchInput').addEventListener('input', App.Utils.debounce(rerender, 200));
@@ -66,7 +60,6 @@
     });
   }
 
-  /* ---------------- Acciones principales ---------------- */
   function wireActions() {
     $$('[data-action="nueva-reserva"]').forEach((btn) => btn.addEventListener('click', () => App.UI.abrirFormulario()));
 
@@ -100,7 +93,6 @@
     $('#sidebarOverlay')?.addEventListener('click', () => $('#mobileSidebar').classList.remove('open'));
   }
 
-  /* ---------------- Inicialización ---------------- */
   function init() {
     D().init();
     wireNav();

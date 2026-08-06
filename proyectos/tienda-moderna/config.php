@@ -1,8 +1,8 @@
 <?php
-$host = '127.0.0.1';
+$host = 'localhost';
 $user = 'root';
 $password = '';
-$database = 'tienda_online';
+$database = 'tienda_moderna';
 
 $conn = new mysqli($host, $user, $password, $database);
 
@@ -25,7 +25,6 @@ function limpiar($data) {
     return htmlspecialchars(strip_tags(trim($data)));
 }
 
-// ── Idioma ──
 $idiomas_permitidos = ['es','en','pt'];
 if (isset($_GET['lang']) && in_array($_GET['lang'], $idiomas_permitidos)) {
     $_SESSION['lang'] = $_GET['lang'];
@@ -38,7 +37,6 @@ function __($key) {
     return $_traducciones[$key] ?? $key;
 }
 
-// ── Banderas ──
 $banderas = [
     'es' => 'img/paraguay%20icono%20.png',
     'en' => 'img/eeuu%20icono.png',
@@ -61,7 +59,6 @@ $config = $_SESSION['config_tienda'] ?? [
 ];
 $moneda = $config['moneda'];
 
-// ── Multimoneda ──
 $monedas_info = [
     'Gs.' => ['s' => 'Gs.', 'd' => 0],
     'USD' => ['s' => 'US$',  'd' => 2],
@@ -91,7 +88,6 @@ function precio($gs) {
     return $info['s'] . ' ' . number_format($valor, $info['d'], ',', '.');
 }
 
-// ── reCAPTCHA ──
 // Usá tus propias keys de https://www.google.com/recaptcha/admin
 // Las de acá son las test keys de Google (siempre válidas para desarrollo)
 define('RECAPTCHA_SITE_KEY', '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI');
@@ -109,7 +105,6 @@ function verificar_captcha($response) {
     return isset($res['success']) && $res['success'] === true;
 }
 
-// ── Envío de email ──
 function enviar_email($para, $asunto, $cuerpo) {
     $cabeceras = "MIME-Version: 1.0\r\nContent-Type: text/html; charset=UTF-8\r\nFrom: NovaRandú <noreply@novarandu.com>\r\n";
     return mail($para, $asunto, $cuerpo, $cabeceras);

@@ -1,12 +1,10 @@
 <?php
 require_once 'config.php';
 
-// Agregar producto al carrito
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['accion'] === 'agregar') {
     $producto_id = (int)$_POST['producto_id'];
     $cantidad = isset($_POST['cantidad']) ? max(1, (int)$_POST['cantidad']) : 1;
 
-    // Verificar stock disponible
     $stmt = $conn->prepare("SELECT stock, nombre FROM productos WHERE id = ?");
     $stmt->bind_param("i", $producto_id);
     $stmt->execute();
@@ -36,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['
     exit();
 }
 
-// Actualizar cantidad
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['accion'] === 'actualizar') {
     $producto_id = (int)$_POST['producto_id'];
     $nueva_cantidad = (int)$_POST['cantidad'];
@@ -44,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['
     if ($nueva_cantidad <= 0) {
         unset($_SESSION['carrito'][$producto_id]);
     } else {
-        // Verificar stock antes de actualizar
         $stmt = $conn->prepare("SELECT stock FROM productos WHERE id = ?");
         $stmt->bind_param("i", $producto_id);
         $stmt->execute();
@@ -55,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['
     exit();
 }
 
-// Eliminar producto
 if (isset($_GET['eliminar'])) {
     $producto_id = (int)$_GET['eliminar'];
     unset($_SESSION['carrito'][$producto_id]);
@@ -63,14 +58,12 @@ if (isset($_GET['eliminar'])) {
     exit();
 }
 
-// Vaciar carrito
 if (isset($_GET['vaciar'])) {
     $_SESSION['carrito'] = [];
     header("Location: carrito.php");
     exit();
 }
 
-// Obtener datos del carrito
 $productos_carrito = [];
 $total = 0;
 

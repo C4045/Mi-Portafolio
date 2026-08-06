@@ -1,4 +1,3 @@
-// Reservation System
 const STORAGE_KEY = 'eclat_reservations';
 
 function getReservations() {
@@ -91,7 +90,6 @@ function deleteReservation(id) {
     showToast('Reservation cancelled successfully', 'warning', 'Cancelled');
 }
 
-// Form validation
 function validateField(id) {
     const el = document.getElementById(id);
     const error = document.getElementById(id + '-error');
@@ -117,7 +115,6 @@ function validateField(id) {
     return true;
 }
 
-// Form submission
 const reservationForm = document.getElementById('reservationForm');
 if (reservationForm) {
     const fields = ['fullName', 'email', 'phone', 'reservationDate', 'reservationTime', 'guests'];
@@ -150,7 +147,6 @@ if (reservationForm) {
         reservationForm.reset();
         fields.forEach(id => document.getElementById(id)?.classList.remove('success'));
 
-        // Show confirmation modal
         document.getElementById('confirmationDetails').innerHTML = `
             <p><strong>${reservation.fullName}</strong></p>
             <p>${formatDate(reservation.reservationDate)} at ${reservation.reservationTime}</p>
@@ -161,7 +157,6 @@ if (reservationForm) {
     });
 }
 
-// Edit form
 const editForm = document.getElementById('editForm');
 if (editForm) {
     editForm.addEventListener('submit', (e) => {
@@ -188,15 +183,12 @@ if (editForm) {
     });
 }
 
-// Modal buttons
 document.getElementById('closeModal')?.addEventListener('click', () => closeModal('confirmationModal'));
 document.getElementById('modalCloseBtn')?.addEventListener('click', () => closeModal('confirmationModal'));
 document.getElementById('closeEditModal')?.addEventListener('click', () => closeModal('editModal'));
 document.getElementById('cancelEditBtn')?.addEventListener('click', () => closeModal('editModal'));
 
-// Search and filter
 document.getElementById('searchInput')?.addEventListener('input', renderReservations);
 document.getElementById('filterDate')?.addEventListener('change', renderReservations);
 
-// Init
 renderReservations();

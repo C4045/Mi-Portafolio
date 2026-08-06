@@ -48,9 +48,7 @@ class GuessGameFrame(ctk.CTkFrame):
         self._actualizar_ranking()
         self._nueva_partida()
 
-    # ------------------------------------------------------------------ #
     # UI
-    # ------------------------------------------------------------------ #
     def _construir_ui(self) -> None:
         self.grid_columnconfigure(0, weight=3)
         self.grid_columnconfigure(1, weight=2)
@@ -146,9 +144,7 @@ class GuessGameFrame(ctk.CTkFrame):
         )
         return panel
 
-    # ------------------------------------------------------------------ #
     # Lógica del juego
-    # ------------------------------------------------------------------ #
     def _on_cambiar_dificultad(self, etiqueta_seleccionada: str) -> None:
         for dificultad, etiqueta in ETIQUETAS_DIFICULTAD.items():
             if etiqueta == etiqueta_seleccionada:
@@ -217,9 +213,7 @@ class GuessGameFrame(ctk.CTkFrame):
             self._actualizar_estadisticas()
             notify(self.winfo_toplevel(), "Partida abandonada.", "info")
 
-    # ------------------------------------------------------------------ #
     # Estadísticas / ranking / exportación
-    # ------------------------------------------------------------------ #
     def _actualizar_estadisticas(self) -> None:
         stats = self.engine.obtener_estadisticas()
         self.badge_partidas.actualizar(str(stats["total_partidas"]))

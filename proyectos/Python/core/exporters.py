@@ -32,9 +32,7 @@ def timestamped_filename(base_name: str, extension: str) -> str:
     return f"{base_name}_{ts}.{extension}"
 
 
-# ---------------------------------------------------------------------- #
 # CSV
-# ---------------------------------------------------------------------- #
 def export_to_csv(datos: list[dict[str, Any]], destino: Path) -> Path:
     _validar_datos(datos)
     try:
@@ -49,9 +47,7 @@ def export_to_csv(datos: list[dict[str, Any]], destino: Path) -> Path:
         raise ExportError(f"No se pudo escribir el CSV: {exc}") from exc
 
 
-# ---------------------------------------------------------------------- #
 # Excel (openpyxl)
-# ---------------------------------------------------------------------- #
 def export_to_excel(
     datos: list[dict[str, Any]], destino: Path, titulo_hoja: str = "Datos"
 ) -> Path:
@@ -100,9 +96,7 @@ def export_to_excel(
         raise ExportError(f"No se pudo escribir el Excel: {exc}") from exc
 
 
-# ---------------------------------------------------------------------- #
 # PDF (reportlab)
-# ---------------------------------------------------------------------- #
 def export_to_pdf(
     datos: list[dict[str, Any]], destino: Path, titulo: str = "Reporte"
 ) -> Path:

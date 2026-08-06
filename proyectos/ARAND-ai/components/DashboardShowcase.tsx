@@ -58,7 +58,6 @@ export default function DashboardShowcase() {
           className="glass-strong mt-16 rounded-2xl border border-border p-3 shadow-card md:p-4"
         >
           <div className="rounded-xl bg-background/60 p-5 md:p-8">
-            {/* Fake window chrome */}
             <div className="mb-6 flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
               <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
@@ -69,7 +68,6 @@ export default function DashboardShowcase() {
             </div>
 
             <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-              {/* Left: metrics + chart */}
               <div className="lg:col-span-2 space-y-5">
                 <div className="grid grid-cols-3 gap-4">
                   {[
@@ -154,8 +152,6 @@ export default function DashboardShowcase() {
                   </div>
                 </div>
               </div>
-
-              {/* Right: AI insights / notifications */}
               <div className="space-y-4">
                 <div className="rounded-xl border border-primary/30 bg-primary/[0.06] p-4">
                   <div className="mb-2 flex items-center gap-2">

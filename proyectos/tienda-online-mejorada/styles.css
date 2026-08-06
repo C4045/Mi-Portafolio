@@ -54,7 +54,6 @@ body {
   background: #38a169;
 }
 
-/* Productos */
 .productos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -179,7 +178,6 @@ body {
   background: #c53030;
 }
 
-/* Carrito */
 .carrito-item {
   display: flex;
   justify-content: space-between;
@@ -203,7 +201,6 @@ body {
   flex-wrap: wrap;
 }
 
-/* Tabla de compra */
 .compra-resumen {
   margin-bottom: 2rem;
   overflow-x: auto;
@@ -226,7 +223,6 @@ th {
   font-weight: bold;
 }
 
-/* Formulario */
 .formulario-compra {
   margin-top: 2rem;
   border-top: 2px solid #667eea;
@@ -257,7 +253,6 @@ textarea {
   resize: vertical;
 }
 
-/* Tarjetas */
 .card {
   background: white;
   border-radius: 15px;
@@ -287,7 +282,6 @@ textarea {
   color: #742a2a;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   body {
     padding: 1rem;
@@ -350,11 +344,7 @@ textarea {
   background: #d35400;
 }
 
-/* =====================================================
-   MEJORAS Y NUEVOS ESTILOS
-   ===================================================== */
 
-/* Badge del carrito */
 .badge {
   background: #e53e3e;
   color: white;
@@ -364,7 +354,6 @@ textarea {
   margin-left: 0.3rem;
 }
 
-/* Barra de búsqueda */
 .barra-busqueda {
   display: flex;
   gap: 0.75rem;
@@ -416,12 +405,10 @@ textarea {
   font-size: 0.9rem;
 }
 
-/* Producto agotado */
 .producto-card.agotado {
   opacity: 0.65;
 }
 
-/* Badge stock bajo */
 .badge-stock-bajo {
   position: absolute;
   top: 8px;
@@ -466,7 +453,6 @@ textarea {
   font-size: 0.9rem;
 }
 
-/* Carrito controles */
 .carrito-controles {
   display: flex;
   flex-direction: column;
@@ -503,7 +489,6 @@ textarea {
   color: #27ae60;
 }
 
-/* Stats del admin */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -536,13 +521,11 @@ textarea {
   font-size: 0.9rem;
 }
 
-/* Fila total en tabla */
 .fila-total {
   background: #f0fff4;
   font-size: 1.1rem;
 }
 
-/* Botón grande en checkout */
 .btn-grande {
   width: 100%;
   padding: 1rem;
@@ -550,7 +533,6 @@ textarea {
   margin-top: 1rem;
 }
 
-/* Estado vacío mejorado */
 .vacio-estado {
   grid-column: 1 / -1;
   text-align: center;

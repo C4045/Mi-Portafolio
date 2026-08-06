@@ -1,4 +1,3 @@
-// Dashboard
 const STORAGE_KEY = 'eclat_reservations';
 
 function getReservations() {
@@ -85,7 +84,6 @@ function renderDashboard() {
     updateStats();
 }
 
-// Edit
 function editReservation(id) {
     const all = getReservations();
     const r = all.find(x => x.id === id);
@@ -101,7 +99,6 @@ function editReservation(id) {
     openModal('editModal');
 }
 
-// Delete
 function confirmDelete(id) {
     document.getElementById('confirmDeleteBtn').dataset.deleteId = id;
     openModal('deleteModal');
@@ -117,7 +114,6 @@ document.getElementById('confirmDeleteBtn')?.addEventListener('click', () => {
     showToast('Reservation cancelled', 'warning', 'Cancelled');
 });
 
-// Edit form submit
 document.getElementById('editFormDashboard')?.addEventListener('submit', (e) => {
     e.preventDefault();
     const id = document.getElementById('editFormDashboard').dataset.editId;
@@ -141,13 +137,11 @@ document.getElementById('editFormDashboard')?.addEventListener('submit', (e) => 
     showToast('Reservation updated', 'success');
 });
 
-// Modal buttons
 document.getElementById('closeDeleteModal')?.addEventListener('click', () => closeModal('deleteModal'));
 document.getElementById('cancelDeleteBtn')?.addEventListener('click', () => closeModal('deleteModal'));
 document.getElementById('closeEditModal')?.addEventListener('click', () => closeModal('editModal'));
 document.getElementById('cancelEditBtnDash')?.addEventListener('click', () => closeModal('editModal'));
 
-// Filters
 document.getElementById('dashboardSearch')?.addEventListener('input', renderDashboard);
 document.getElementById('statusFilter')?.addEventListener('change', renderDashboard);
 document.getElementById('dashboardDateFilter')?.addEventListener('change', renderDashboard);
@@ -158,5 +152,4 @@ document.getElementById('clearFiltersBtn')?.addEventListener('click', () => {
     renderDashboard();
 });
 
-// Init
 renderDashboard();

@@ -1,7 +1,6 @@
 <?php
 require_once 'config.php';
 
-// Protección admin
 if (!isset($_SESSION['admin_logueado']) || $_SESSION['admin_logueado'] !== true) {
     header("Location: login.php");
     exit();
@@ -12,7 +11,6 @@ $mensaje = '';
 $error = '';
 $producto = null;
 
-// Obtener producto a editar
 if (isset($_GET['id'])) {
   $id = $_GET['id'];
   $sql = "SELECT * FROM productos WHERE id = ?";
@@ -29,7 +27,6 @@ if (isset($_GET['id'])) {
   }
 }
 
-// Procesar edición
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $id = $_POST['id'];
   $nombre = $_POST['nombre'];

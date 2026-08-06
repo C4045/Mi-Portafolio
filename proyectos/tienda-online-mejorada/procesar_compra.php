@@ -6,7 +6,6 @@ if (empty($_SESSION['carrito'])) {
     exit();
 }
 
-// Obtener productos del carrito con validación de stock
 $ids = array_map('intval', array_keys($_SESSION['carrito']));
 $ids_str = implode(',', $ids);
 $result = $conn->query("SELECT * FROM productos WHERE id IN ($ids_str)");
@@ -25,7 +24,6 @@ while ($row = $result->fetch_assoc()) {
     $productos[] = $row;
 }
 
-// Procesar formulario
 $errores_form = [];
 $datos = [];
 
@@ -37,14 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $datos['ciudad']    = limpiar($_POST['ciudad'] ?? '');
     $datos['notas']     = limpiar($_POST['notas'] ?? '');
 
-    // Validaciones
     if (strlen($datos['nombre']) < 3) $errores_form[] = "El nombre debe tener al menos 3 caracteres";
     if (!filter_var($datos['email'], FILTER_VALIDATE_EMAIL)) $errores_form[] = "El email no es válido";
     if (strlen($datos['direccion']) < 5) $errores_form[] = "La dirección es demasiado corta";
     if (strlen($datos['ciudad']) < 2) $errores_form[] = "Ingresa tu ciudad";
 
     if (empty($errores_form) && empty($errores_stock)) {
-        // Insertar pedido en transacción
         $conn->begin_transaction();
         try {
             $stmt = $conn->prepare("INSERT INTO pedidos (nombre_cliente, email, telefono, direccion, ciudad, notas, total) VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -53,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pedido_id = $stmt->insert_id;
 
             foreach ($productos as $item) {
-                // Verificar stock en tiempo real (transacción)
                 $chk = $conn->prepare("SELECT stock FROM productos WHERE id = ? FOR UPDATE");
                 $chk->bind_param("i", $item['id']);
                 $chk->execute();
@@ -100,7 +95,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="carrito.php" class="btn-volver">← Volver al carrito</a>
         </div>
 
-        <!-- Errores de stock -->
         <?php if (!empty($errores_stock)): ?>
           <div class="mensaje mensaje-error">
             <strong> Problema con el stock:</strong><br>
@@ -111,7 +105,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
         <?php endif; ?>
 
-        <!-- Errores del formulario -->
         <?php if (!empty($errores_form)): ?>
           <div class="mensaje mensaje-error">
             <strong> Por favor corrige los siguientes errores:</strong><br>

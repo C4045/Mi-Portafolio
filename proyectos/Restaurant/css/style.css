@@ -1,13 +1,6 @@
-/* ============================================
-   RESTAURANT RESERVATION SYSTEM - GLOBAL STYLES
-   ============================================ */
 
-/* ============================================
-   1. CSS CUSTOM PROPERTIES (VARIABLES)
-   ============================================ */
 
 :root {
-    /* Colors - Premium Palette */
     --color-primary: #d4a574;
     --color-primary-dark: #b8935f;
     --color-primary-light: #e8c9b3;
@@ -32,7 +25,6 @@
     --color-white: #ffffff;
     --color-black: #000000;
     
-    /* Typography */
     --font-display: 'Cormorant Garamond', serif;
     --font-body: 'Montserrat', sans-serif;
     
@@ -52,7 +44,6 @@
     --fw-semibold: 600;
     --fw-bold: 700;
     
-    /* Spacing */
     --space-xs: 0.25rem;
     --space-sm: 0.5rem;
     --space-md: 1rem;
@@ -62,7 +53,6 @@
     --space-3xl: 3rem;
     --space-4xl: 4rem;
     
-    /* Border Radius */
     --radius-xs: 0.25rem;
     --radius-sm: 0.375rem;
     --radius-md: 0.5rem;
@@ -71,19 +61,16 @@
     --radius-2xl: 1.5rem;
     --radius-full: 9999px;
     
-    /* Shadows */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
     --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     
-    /* Transitions */
     --transition-fast: 150ms ease-in-out;
     --transition-base: 250ms ease-in-out;
     --transition-slow: 350ms ease-in-out;
     
-    /* Z-index */
     --z-dropdown: 100;
     --z-sticky: 200;
     --z-fixed: 300;
@@ -93,7 +80,6 @@
     --z-tooltip: 700;
 }
 
-/* Dark Mode */
 [data-theme="dark"] {
     --color-bg: #0f0f0f;
     --color-bg-secondary: #1a1a1a;
@@ -105,9 +91,6 @@
     --color-secondary-lighter: #cccccc;
 }
 
-/* ============================================
-   2. RESET AND BASE STYLES
-   ============================================ */
 
 * {
     margin: 0;
@@ -130,9 +113,6 @@ body {
     transition: background-color var(--transition-base), color var(--transition-base);
 }
 
-/* ============================================
-   3. TYPOGRAPHY
-   ============================================ */
 
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
@@ -170,9 +150,6 @@ code {
     font-size: var(--fs-sm);
 }
 
-/* ============================================
-   4. LAYOUT
-   ============================================ */
 
 .container {
     max-width: 1200px;
@@ -184,9 +161,6 @@ main {
     min-height: calc(100vh - 200px);
 }
 
-/* ============================================
-   5. NAVIGATION
-   ============================================ */
 
 .navbar {
     position: sticky;
@@ -300,9 +274,6 @@ main {
     gap: var(--space-lg);
 }
 
-/* ============================================
-   6. BUTTONS
-   ============================================ */
 
 .btn {
     display: inline-flex;
@@ -382,9 +353,6 @@ main {
     stroke-width: 2;
 }
 
-/* ============================================
-   7. FORMS
-   ============================================ */
 
 .form-group {
     margin-bottom: var(--space-xl);
@@ -445,9 +413,6 @@ main {
     border-color: var(--color-success);
 }
 
-/* ============================================
-   8. SECTIONS
-   ============================================ */
 
 .hero {
     padding: var(--space-4xl) 0;
@@ -545,7 +510,6 @@ main {
     margin: 0;
 }
 
-/* Featured Section */
 .featured {
     padding: var(--space-4xl) 0;
     background-color: var(--color-bg-secondary);
@@ -618,7 +582,6 @@ main {
     margin: 0;
 }
 
-/* Testimonials Section */
 .testimonials {
     padding: var(--space-4xl) 0;
 }
@@ -671,7 +634,6 @@ main {
     font-style: normal;
 }
 
-/* CTA Section */
 .cta-section {
     background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-light) 100%);
     color: var(--color-white);
@@ -691,9 +653,6 @@ main {
     color: rgba(255, 255, 255, 0.9);
 }
 
-/* ============================================
-   9. FOOTER
-   ============================================ */
 
 .footer {
     background-color: var(--color-secondary);
@@ -764,9 +723,6 @@ main {
     font-size: var(--fs-sm);
 }
 
-/* ============================================
-   10. THEME TOGGLE
-   ============================================ */
 
 .theme-toggle {
     background: none;
@@ -809,9 +765,6 @@ main {
     display: block;
 }
 
-/* ============================================
-   11. SCROLL TO TOP BUTTON
-   ============================================ */
 
 .scroll-to-top {
     position: fixed;
@@ -849,9 +802,6 @@ main {
     stroke-width: 2;
 }
 
-/* ============================================
-   12. TOAST NOTIFICATIONS
-   ============================================ */
 
 .toast-container {
     position: fixed;
@@ -921,9 +871,6 @@ main {
     color: var(--color-text-light);
 }
 
-/* ============================================
-   13. MODALS
-   ============================================ */
 
 .modal {
     display: none;
@@ -1029,9 +976,6 @@ main {
     flex: 1;
 }
 
-/* ============================================
-   14. EMPTY STATE
-   ============================================ */
 
 .empty-state {
     text-align: center;
@@ -1056,9 +1000,6 @@ main {
     margin-bottom: var(--space-xl);
 }
 
-/* ============================================
-   15. ANIMATIONS
-   ============================================ */
 
 @keyframes slideUp {
     from {
@@ -1162,9 +1103,6 @@ main {
     animation: successCheck 0.6s ease-out;
 }
 
-/* ============================================
-   16. UTILITY CLASSES
-   ============================================ */
 
 .text-muted {
     color: var(--color-text-light);
@@ -1198,9 +1136,6 @@ main {
     overflow: hidden;
 }
 
-/* ============================================
-   17. RESPONSIVE DESIGN
-   ============================================ */
 
 @media (max-width: 768px) {
     .navbar__menu {
@@ -1324,7 +1259,6 @@ main {
     }
 }
 
-/* Prefers reduced motion */
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.01ms !important;

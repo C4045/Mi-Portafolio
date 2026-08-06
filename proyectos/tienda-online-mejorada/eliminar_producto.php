@@ -1,7 +1,6 @@
 <?php
 require_once 'config.php';
 
-// Protección admin
 if (!isset($_SESSION['admin_logueado']) || $_SESSION['admin_logueado'] !== true) {
     header("Location: login.php");
     exit();

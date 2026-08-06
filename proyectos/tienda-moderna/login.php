@@ -3,13 +3,11 @@ require_once 'config.php';
 
 $error = '';
 
-// Si ya está logueado, redirigir al admin
 if (isset($_SESSION['admin_logueado']) && $_SESSION['admin_logueado'] === true) {
     header("Location: admin.php");
     exit();
 }
 
-// Procesar login
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario  = trim($_POST['usuario'] ?? '');
     $password = $_POST['password'] ?? '';

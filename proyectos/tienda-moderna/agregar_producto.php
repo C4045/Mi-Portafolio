@@ -1,7 +1,6 @@
 <?php
 require_once 'config.php';
 
-// Protección admin
 if (!isset($_SESSION['admin_logueado']) || $_SESSION['admin_logueado'] !== true) {
     header("Location: login.php");
     exit();
@@ -18,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stock = $_POST['stock'];
   $imagen = $_POST['imagen'];
 
-  // Validar datos
   if (empty($nombre) || empty($precio) || empty($stock)) {
     $error = ' Nombre, precio y stock son obligatorios';
   } else {

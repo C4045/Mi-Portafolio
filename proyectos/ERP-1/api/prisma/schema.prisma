@@ -1,0 +1,852 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum DocumentType {
+  CI
+  RUC
+  PASSPORT
+}
+
+enum ProductType {
+  product
+  service
+  combo
+}
+
+enum MovementType {
+  purchase_in
+  purchase_return
+  sale_out
+  sale_return
+  transfer_in
+  transfer_out
+  adjustment_in
+  adjustment_out
+  initial
+}
+
+enum SaleStatus {
+  draft
+  sent
+  accepted
+  rejected
+  expired
+  confirmed
+  invoiced
+  cancelled
+  partially_paid
+  paid
+  fulfilled
+  converted
+}
+
+enum PurchaseStatus {
+  draft
+  ordered
+  partially_received
+  received
+  cancelled
+}
+
+enum AccountType {
+  asset
+  liability
+  equity
+  income
+  expense
+}
+
+enum EntryStatus {
+  draft
+  posted
+}
+
+enum CurrencyCode {
+  PYG
+  USD
+  BRL
+  ARS
+}
+
+// ─── CORE ────────────────────────────────────────────────────────────────────
+
+model Company {
+  id            String   @id @default(uuid())
+  name          String
+  legalName     String?  @map("legal_name")
+  taxId         String?  @map("tax_id")
+  taxIdType     String?  @map("tax_id_type") @default("RUC")
+  logoUrl       String?  @map("logo_url")
+  website       String?
+  phone         String?
+  email         String?
+  address       String?
+  city          String?
+  state         String?
+  country       String   @default("Paraguay")
+  currencyCode  String   @default("PYG") @map("currency_code")
+  timezone      String   @default("America/Asuncion")
+  fiscalYearStart DateTime? @map("fiscal_year_start")
+  isActive      Boolean  @default(true) @map("is_active")
+  config        String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  createdBy String? @map("created_by")
+  updatedBy String? @map("updated_by")
+  deletedBy String? @map("deleted_by")
+
+  sucursales  Sucursal[]
+  users       User[]
+  categories  Category[]
+  products    Product[]
+  customers   Customer[]
+  suppliers   Supplier[]
+  warehouses  Warehouse[]
+  sales       Sale[]
+  purchases   Purchase[]
+  auditLogs   AuditLog[]
+  roles       Role[]
+  unitTypes   UnitType[]
+  inventoryMovements InventoryMovement[]
+  accountsChart AccountChart[]
+  journalEntries JournalEntry[]
+  invoices Invoice[]
+  paymentMethods PaymentMethod[]
+  payments Payment[]
+
+  @@map("companies")
+}
+
+model Sucursal {
+  id            String  @id @default(uuid())
+  companyId     String  @map("company_id")
+  code          String  @map("code")
+  name          String
+  address       String?
+  phone         String?
+  email         String?
+  isHeadquarters Boolean @default(false) @map("is_headquarters")
+  isActive      Boolean @default(true) @map("is_active")
+
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+  deletedAt  DateTime? @map("deleted_at")
+  createdBy  String?   @map("created_by")
+  updatedBy  String?   @map("updated_by")
+  deletedBy  String?   @map("deleted_by")
+
+  company Company @relation(fields: [companyId], references: [id])
+
+  users      User[]
+  sales      Sale[]
+  purchases  Purchase[]
+  warehouses Warehouse[]
+
+  @@unique([companyId, code])
+  @@map("sucursales")
+}
+
+model Warehouse {
+  id        String  @id @default(uuid())
+  companyId String  @map("company_id")
+  sucursalId String? @map("sucursal_id")
+  code      String 
+  name      String 
+  address   String?
+  isActive  Boolean @default(true) @map("is_active")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  createdBy String?   @map("created_by")
+  updatedBy String?   @map("updated_by")
+  deletedBy String?   @map("deleted_by")
+
+  company  Company   @relation(fields: [companyId], references: [id])
+  sucursal Sucursal? @relation(fields: [sucursalId], references: [id])
+
+  inventoryMovements InventoryMovement[]
+
+  @@unique([companyId, code])
+  @@map("warehouses")
+}
+
+// ─── AUTH ────────────────────────────────────────────────────────────────────
+
+model User {
+  id               String   @id @default(uuid())
+  companyId        String   @map("company_id")
+  sucursalId       String?  @map("sucursal_id")
+  username         String   @unique
+  email            String   @unique
+  passwordHash     String   @map("password_hash")
+  firstName        String?  @map("first_name")
+  lastName         String?  @map("last_name")
+  phone            String? 
+  avatarUrl        String?  @map("avatar_url")
+  isActive         Boolean  @default(true) @map("is_active")
+  mustChangePassword Boolean @default(false) @map("must_change_password")
+  lastLoginAt      DateTime? @map("last_login_at")
+  twoFactorEnabled Boolean @default(false) @map("two_factor_enabled")
+  twoFactorSecret  String? @map("two_factor_secret")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  createdBy String?   @map("created_by")
+  updatedBy String?   @map("updated_by")
+  deletedBy String?   @map("deleted_by")
+
+  company  Company   @relation(fields: [companyId], references: [id])
+  sucursal Sucursal? @relation(fields: [sucursalId], references: [id])
+
+  roles         UserRole[]
+  refreshTokens RefreshToken[]
+  passwordResets PasswordReset[]
+  sales         Sale[]
+  purchases     Purchase[]
+  auditLogs     AuditLog[]
+  inventoryMovements InventoryMovement[]
+
+  @@map("users")
+}
+
+model Role {
+  id          String  @id @default(uuid())
+  companyId   String  @map("company_id")
+  name        String 
+  displayName String? @map("display_name")
+  description String?
+  level       Int     @default(1)
+  isSystem    Boolean @default(false) @map("is_system")
+  isActive    Boolean @default(true) @map("is_active")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  createdBy String?   @map("created_by")
+  updatedBy String?   @map("updated_by")
+  deletedBy String?   @map("deleted_by")
+
+  company     Company        @relation(fields: [companyId], references: [id])
+  users       UserRole[]
+  permissions RolePermission[]
+
+  @@unique([companyId, name])
+  @@map("roles")
+}
+
+model Permission {
+  id          String @id @default(uuid())
+  module      String
+  action      String
+  name        String @unique
+  description String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  roles RolePermission[]
+
+  @@map("permissions")
+}
+
+model UserRole {
+  userId String @map("user_id")
+  roleId String @map("role_id")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+  @@map("user_roles")
+}
+
+model RolePermission {
+  roleId       String @map("role_id")
+  permissionId String @map("permission_id")
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@map("role_permissions")
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  tokenHash String   @unique @map("token_hash")
+  expiresAt DateTime @map("expires_at")
+  revoked   Boolean  @default(false)
+  replacedBy String? @map("replaced_by")
+  ipAddress String?  @map("ip_address")
+  userAgent String?  @map("user_agent")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("refresh_tokens")
+}
+
+model PasswordReset {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  tokenHash String   @map("token_hash")
+  expiresAt DateTime @map("expires_at")
+  used      Boolean  @default(false)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("password_resets")
+}
+
+// ─── PRODUCTS ────────────────────────────────────────────────────────────────
+
+model UnitType {
+  id       String @id @default(uuid())
+  code     String @unique
+  name     String
+  symbol   String
+  category String @default("unit")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  companyId String? @map("company_id")
+  company   Company? @relation(fields: [companyId], references: [id])
+
+  products      Product[]
+  saleItems     SaleItem[]
+  purchaseItems PurchaseItem[]
+
+  @@map("unit_types")
+}
+
+model Category {
+  id          String  @id @default(uuid())
+  companyId   String  @map("company_id")
+  parentId    String? @map("parent_id")
+  code        String 
+  name        String 
+  description String?
+  isActive    Boolean @default(true) @map("is_active")
+  sortOrder   Int     @default(0) @map("sort_order")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  createdBy String?   @map("created_by")
+  updatedBy String?   @map("updated_by")
+  deletedBy String?   @map("deleted_by")
+
+  company  Company   @relation(fields: [companyId], references: [id])
+  parent   Category? @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryHierarchy")
+
+  products Product[]
+
+  @@unique([companyId, code])
+  @@map("categories")
+}
+
+model Product {
+  id            String  @id @default(uuid())
+  companyId     String  @map("company_id")
+  categoryId    String? @map("category_id")
+  unitTypeId    String  @map("unit_type_id")
+  sku           String 
+  barcode       String?
+  name          String 
+  description   String?
+  productType   ProductType @default(product) @map("product_type")
+  costPrice     Decimal @default(0) @map("cost_price")
+  salePrice     Decimal @default(0) @map("sale_price")
+  minStock      Decimal @default(0) @map("min_stock")
+  maxStock      Decimal @default(0) @map("max_stock")
+  currentStock  Decimal @default(0) @map("current_stock")
+  isActive      Boolean @default(true) @map("is_active")
+  hasIva        Boolean @default(true) @map("has_iva")
+  ivaPercentage Decimal @default(10.00) @map("iva_percentage")
+  imageUrl      String? @map("image_url")
+  weight        Decimal?
+  volume        Decimal?
+  isTracked     Boolean @default(true) @map("is_tracked")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  createdBy String?   @map("created_by")
+  updatedBy String?   @map("updated_by")
+  deletedBy String?   @map("deleted_by")
+
+  company  Company   @relation(fields: [companyId], references: [id])
+  category Category? @relation(fields: [categoryId], references: [id])
+  unitType UnitType  @relation(fields: [unitTypeId], references: [id])
+
+  saleItems         SaleItem[]
+  purchaseItems     PurchaseItem[]
+  inventoryMovements InventoryMovement[]
+  invoiceItems      InvoiceItem[]
+
+  @@unique([companyId, sku])
+  @@index([companyId, barcode])
+  @@index([companyId, isActive, categoryId])
+  @@map("products")
+}
+
+// ─── CRM ─────────────────────────────────────────────────────────────────────
+
+model Customer {
+  id             String  @id @default(uuid())
+  companyId      String  @map("company_id")
+  documentType   DocumentType @default(CI) @map("document_type")
+  documentNumber String  @map("document_number")
+  businessName   String? @map("business_name")
+  firstName      String? @map("first_name")
+  lastName       String? @map("last_name")
+  email          String?
+  phone          String?
+  mobile         String?
+  address        String?
+  city           String?
+  state          String?
+  country        String  @default("Paraguay")
+  birthDate      DateTime? @map("birth_date")
+  creditLimit    Decimal  @default(0) @map("credit_limit")
+  isCreditHold   Boolean  @default(false) @map("is_credit_hold")
+  notes          String? 
+  isActive       Boolean  @default(true) @map("is_active")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  createdBy String?   @map("created_by")
+  updatedBy String?   @map("updated_by")
+  deletedBy String?   @map("deleted_by")
+
+  company Company @relation(fields: [companyId], references: [id])
+
+  sales Sale[]
+
+  @@unique([companyId, documentType, documentNumber])
+  @@map("customers")
+}
+
+model Supplier {
+  id              String  @id @default(uuid())
+  companyId       String  @map("company_id")
+  documentType    DocumentType @default(RUC) @map("document_type")
+  documentNumber  String  @map("document_number")
+  businessName    String  @map("business_name")
+  contactName     String? @map("contact_name")
+  email           String?
+  phone           String?
+  mobile          String?
+  address         String?
+  city            String?
+  state           String?
+  country         String  @default("Paraguay")
+  paymentTerms    String? @map("payment_terms")
+  creditDays      Int     @default(0) @map("credit_days")
+  notes           String?
+  isActive        Boolean @default(true) @map("is_active")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  createdBy String?   @map("created_by")
+  updatedBy String?   @map("updated_by")
+  deletedBy String?   @map("deleted_by")
+
+  company Company @relation(fields: [companyId], references: [id])
+
+  purchases Purchase[]
+
+  @@unique([companyId, documentType, documentNumber])
+  @@map("suppliers")
+}
+
+// ─── SALES ────────────────────────────────────────────────────────────────────
+
+model Sale {
+  id             String     @id @default(uuid())
+  companyId      String     @map("company_id")
+  sucursalId     String     @map("sucursal_id")
+  customerId     String     @map("customer_id")
+  userId         String     @map("user_id")
+  documentType   String     @default("invoice") @map("document_type")
+  documentSerie  String     @map("document_serie")
+  documentNumber String     @map("document_number")
+  issueDate      DateTime   @default(now()) @map("issue_date")
+  dueDate        DateTime?  @map("due_date")
+  paymentTerm    String?    @map("payment_term")
+  currencyCode   CurrencyCode @default(PYG) @map("currency_code")
+  exchangeRate   Decimal    @default(1) @map("exchange_rate")
+  subtotal       Decimal    @default(0)
+  tax            Decimal    @default(0)
+  discount       Decimal    @default(0)
+  discountType   String     @default("percentage") @map("discount_type")
+  discountRate   Decimal    @default(0) @map("discount_rate")
+  total          Decimal    @default(0)
+  status         SaleStatus @default(draft)
+  notes          String?   
+  internalNotes  String?    @map("internal_notes")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  createdBy String?   @map("created_by")
+  updatedBy String?   @map("updated_by")
+  deletedBy String?   @map("deleted_by")
+
+  company  Company  @relation(fields: [companyId], references: [id])
+  sucursal Sucursal @relation(fields: [sucursalId], references: [id])
+  customer Customer @relation(fields: [customerId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
+
+  items    SaleItem[]
+  invoices Invoice[]
+  payments Payment[]
+
+  @@unique([companyId, documentSerie, documentNumber])
+  @@index([companyId, status])
+  @@index([customerId])
+  @@index([userId])
+  @@map("sales")
+}
+
+model SaleItem {
+  id           String @id @default(uuid())
+  saleId       String @map("sale_id")
+  productId    String @map("product_id")
+  lineNumber   Int    @map("line_number")
+  description  String?
+  quantity     Decimal
+  unitTypeId   String? @map("unit_type_id")
+  unitPrice    Decimal @map("unit_price")
+  discount     Decimal @default(0)
+  discountType String  @default("percentage") @map("discount_type")
+  discountRate Decimal @default(0) @map("discount_rate")
+  taxRate      Decimal @default(10.00) @map("tax_rate")
+  subtotal     Decimal
+  tax          Decimal @default(0)
+  total        Decimal
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  sale     Sale     @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  product  Product  @relation(fields: [productId], references: [id])
+  unitType UnitType? @relation(fields: [unitTypeId], references: [id])
+
+  @@index([saleId])
+  @@index([productId])
+  @@map("sale_items")
+}
+
+// ─── PURCHASES ────────────────────────────────────────────────────────────────
+
+model Purchase {
+  id             String         @id @default(uuid())
+  companyId      String         @map("company_id")
+  sucursalId     String         @map("sucursal_id")
+  supplierId     String         @map("supplier_id")
+  userId         String         @map("user_id")
+  documentType   String         @default("purchase_order") @map("document_type")
+  documentSerie  String         @map("document_serie")
+  documentNumber String         @map("document_number")
+  orderDate      DateTime       @default(now()) @map("order_date")
+  expectedDate   DateTime?      @map("expected_date")
+  currencyCode   CurrencyCode   @default(PYG) @map("currency_code")
+  exchangeRate   Decimal        @default(1) @map("exchange_rate")
+  subtotal       Decimal        @default(0)
+  tax            Decimal        @default(0)
+  discount       Decimal        @default(0)
+  total          Decimal        @default(0)
+  status         PurchaseStatus @default(draft)
+  notes          String?       
+  internalNotes  String?        @map("internal_notes")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  createdBy String?   @map("created_by")
+  updatedBy String?   @map("updated_by")
+  deletedBy String?   @map("deleted_by")
+
+  company  Company  @relation(fields: [companyId], references: [id])
+  sucursal Sucursal @relation(fields: [sucursalId], references: [id])
+  supplier Supplier @relation(fields: [supplierId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
+
+  items PurchaseItem[]
+
+  @@unique([companyId, documentSerie, documentNumber])
+  @@index([supplierId])
+  @@index([userId])
+  @@map("purchases")
+}
+
+model PurchaseItem {
+  id           String @id @default(uuid())
+  purchaseId   String @map("purchase_id")
+  productId    String @map("product_id")
+  lineNumber   Int    @map("line_number")
+  description  String?
+  quantity     Decimal
+  receivedQty  Decimal @default(0) @map("received_qty")
+  unitTypeId   String? @map("unit_type_id")
+  unitCost     Decimal @map("unit_cost")
+  discount     Decimal @default(0)
+  taxRate      Decimal @default(10.00) @map("tax_rate")
+  subtotal     Decimal
+  tax          Decimal @default(0)
+  total        Decimal
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  purchase Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  product  Product  @relation(fields: [productId], references: [id])
+  unitType UnitType? @relation(fields: [unitTypeId], references: [id])
+
+  @@index([purchaseId])
+  @@index([productId])
+  @@map("purchase_items")
+}
+
+// ─── INVENTORY ────────────────────────────────────────────────────────────────
+
+model InventoryMovement {
+  id           String       @id @default(uuid())
+  companyId    String       @map("company_id")
+  productId    String       @map("product_id")
+  warehouseId  String?      @map("warehouse_id")
+  movementType MovementType @map("movement_type")
+  referenceType String?     @map("reference_type")
+  referenceId  String?      @map("reference_id")
+  quantity     Decimal     
+  unitCost     Decimal?     @map("unit_cost")
+  totalCost    Decimal?     @map("total_cost")
+  stockBefore  Decimal?     @map("stock_before")
+  stockAfter   Decimal?     @map("stock_after")
+  notes        String?     
+  userId       String       @map("user_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  company  Company   @relation(fields: [companyId], references: [id])
+  product  Product   @relation(fields: [productId], references: [id])
+  warehouse Warehouse? @relation(fields: [warehouseId], references: [id])
+  user     User      @relation(fields: [userId], references: [id])
+
+  @@index([companyId, productId, createdAt])
+  @@index([productId, movementType])
+  @@map("inventory_movements")
+}
+
+// ─── FINANCIAL ───────────────────────────────────────────────────────────────
+
+model AccountChart {
+  id          String      @id @default(uuid())
+  companyId   String      @map("company_id")
+  parentId    String?     @map("parent_id")
+  code        String
+  name        String
+  type        AccountType
+  nature      String      @default("debit")
+  level       Int         @default(1)
+  description String?
+  isActive    Boolean     @default(true) @map("is_active")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  createdBy String?   @map("created_by")
+  updatedBy String?   @map("updated_by")
+  deletedBy String?   @map("deleted_by")
+
+  company  Company       @relation(fields: [companyId], references: [id])
+  parent   AccountChart? @relation("AccountHierarchy", fields: [parentId], references: [id])
+  children AccountChart[] @relation("AccountHierarchy")
+
+  journalLines JournalLine[]
+
+  @@unique([companyId, code])
+  @@map("accounts_chart")
+}
+
+model JournalEntry {
+  id          String      @id @default(uuid())
+  companyId   String      @map("company_id")
+  entryNumber String      @unique @map("entry_number")
+  description String?
+  entryDate   DateTime    @default(now()) @map("entry_date")
+  totalDebit  Decimal     @default(0) @map("total_debit")
+  totalCredit Decimal     @default(0) @map("total_credit")
+  referenceType String?   @map("reference_type")
+  referenceId  String?    @map("reference_id")
+  status      EntryStatus @default(draft)
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  createdBy String?   @map("created_by")
+  updatedBy String?   @map("updated_by")
+  deletedBy String?   @map("deleted_by")
+
+  company Company @relation(fields: [companyId], references: [id])
+
+  lines JournalLine[]
+
+  @@map("journal_entries")
+}
+
+model JournalLine {
+  id            String  @id @default(uuid())
+  journalEntryId String @map("journal_entry_id")
+  accountId     String  @map("account_id")
+  debit         Decimal @default(0)
+  credit        Decimal @default(0)
+  description   String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  journalEntry JournalEntry @relation(fields: [journalEntryId], references: [id], onDelete: Cascade)
+  account      AccountChart @relation(fields: [accountId], references: [id])
+
+  @@index([journalEntryId])
+  @@index([accountId])
+  @@map("journal_lines")
+}
+
+model Invoice {
+  id             String   @id @default(uuid())
+  saleId         String?  @map("sale_id")
+  companyId      String   @map("company_id")
+  customerId     String?  @map("customer_id")
+  documentType   String   @default("invoice") @map("document_type")
+  documentSerie  String   @map("document_serie")
+  documentNumber String   @map("document_number")
+  invoiceNumber  String   @unique @map("invoice_number")
+  issueDate      DateTime @default(now()) @map("issue_date")
+  dueDate        DateTime? @map("due_date")
+  subtotal       Decimal  @default(0)
+  tax            Decimal  @default(0)
+  discount       Decimal  @default(0)
+  total          Decimal
+  currencyCode   String   @default("PYG") @map("currency_code")
+  status         String   @default("issued")
+  notes          String?
+  pdfGenerated   Boolean  @default(false) @map("pdf_generated")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  createdBy String?   @map("created_by")
+  updatedBy String?   @map("updated_by")
+  deletedBy String?   @map("deleted_by")
+
+  company Company? @relation(fields: [companyId], references: [id])
+  sale    Sale?    @relation(fields: [saleId], references: [id])
+
+  items InvoiceItem[]
+
+  @@unique([companyId, documentSerie, documentNumber])
+  @@index([saleId])
+  @@map("invoices")
+}
+
+model InvoiceItem {
+  id        String  @id @default(uuid())
+  invoiceId String  @map("invoice_id")
+  productId String? @map("product_id")
+  description String
+  quantity  Decimal
+  unitPrice Decimal @map("unit_price")
+  total     Decimal
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  product Product? @relation(fields: [productId], references: [id])
+
+  @@index([invoiceId])
+  @@map("invoice_items")
+}
+
+// ─── PAYMENTS ─────────────────────────────────────────────────────────────────
+
+model PaymentMethod {
+  id          String  @id @default(uuid())
+  companyId   String  @map("company_id")
+  code        String
+  name        String
+  description String?
+  isActive    Boolean @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  company  Company   @relation(fields: [companyId], references: [id])
+  payments Payment[]
+
+  @@unique([companyId, code])
+  @@map("payment_methods")
+}
+
+model Payment {
+  id              String   @id @default(uuid())
+  companyId       String   @map("company_id")
+  saleId          String   @map("sale_id")
+  paymentMethodId String   @map("payment_method_id")
+  amount          Decimal
+  reference       String?
+  paymentDate     DateTime @default(now()) @map("payment_date")
+  notes           String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  company       Company       @relation(fields: [companyId], references: [id])
+  sale          Sale          @relation(fields: [saleId], references: [id])
+  paymentMethod PaymentMethod @relation(fields: [paymentMethodId], references: [id])
+
+  @@index([saleId])
+  @@index([paymentMethodId])
+  @@map("payments")
+}
+
+// ─── AUDIT ────────────────────────────────────────────────────────────────────
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?  @map("user_id")
+  companyId String?  @map("company_id")
+  action    String  
+  entity    String  
+  entityId  String?  @map("entity_id")
+  oldValues Json?    @map("old_values")
+  newValues Json?    @map("new_values")
+  ipAddress String?  @map("ip_address")
+  userAgent String?  @map("user_agent")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user    User?    @relation(fields: [userId], references: [id])
+  company Company? @relation(fields: [companyId], references: [id])
+
+  @@index([companyId, entity, entityId])
+  @@index([companyId, createdAt])
+  @@map("audit_logs")
+}
+

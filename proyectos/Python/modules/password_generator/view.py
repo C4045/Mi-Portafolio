@@ -41,9 +41,7 @@ class PasswordGeneratorFrame(ctk.CTkFrame):
         self._actualizar_historial()
         self._actualizar_estadisticas()
 
-    # ------------------------------------------------------------------ #
     # UI
-    # ------------------------------------------------------------------ #
     def _construir_ui(self) -> None:
         self.grid_columnconfigure(0, weight=3)
         self.grid_columnconfigure(1, weight=2)
@@ -170,9 +168,7 @@ class PasswordGeneratorFrame(ctk.CTkFrame):
         )
         return panel
 
-    # ------------------------------------------------------------------ #
     # Eventos
-    # ------------------------------------------------------------------ #
     def _on_slider_longitud(self, valor: float) -> None:
         self.longitud_var.set(int(valor))
         self.longitud_label.configure(text=str(int(valor)))
@@ -254,9 +250,7 @@ class PasswordGeneratorFrame(ctk.CTkFrame):
         except Exception:
             pass
 
-    # ------------------------------------------------------------------ #
     # Historial / estadísticas / exportación
-    # ------------------------------------------------------------------ #
     def _actualizar_historial(self) -> None:
         for widget in self.historial_scroll.winfo_children():
             widget.destroy()

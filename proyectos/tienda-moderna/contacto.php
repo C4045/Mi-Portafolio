@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     elseif (!filter_var($datos['email'], FILTER_VALIDATE_EMAIL)) $err = __('email_invalido');
     elseif (strlen($datos['mensaje']) < 10) $err = __('mensaje_corto');
     else {
-        // Crear tabla si no existe
         $conn->query("CREATE TABLE IF NOT EXISTS contactos (
             id INT AUTO_INCREMENT PRIMARY KEY,
             nombre VARCHAR(255) NOT NULL,

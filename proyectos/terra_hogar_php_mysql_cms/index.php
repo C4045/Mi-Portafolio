@@ -75,7 +75,6 @@ foreach ($stmt as $row) {
     padding:0 32px;
   }
 
-  /* ---------- focus visibility ---------- */
   a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
     outline:2px solid var(--coral);
     outline-offset:3px;
@@ -85,7 +84,6 @@ foreach ($stmt as $row) {
     *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
   }
 
-  /* ================= HEADER ================= */
   header{
     position:fixed;
     top:0; left:0; right:0;
@@ -157,7 +155,6 @@ foreach ($stmt as $row) {
     }
   }
 
-  /* ================= HERO ================= */
   .hero{
     position:relative;
     min-height:100vh;
@@ -321,7 +318,6 @@ foreach ($stmt as $row) {
     .floating-tag.verified{margin-left:12px;}
   }
 
-  /* ================= SECTION HEADERS ================= */
   .section{padding:110px 0;}
   .section-head{
     max-width:620px;
@@ -351,7 +347,6 @@ foreach ($stmt as $row) {
   }
   .alt-bg{background:var(--cream-deep);}
 
-  /* ================= PROPIEDADES ================= */
   .listings{
     display:grid;
     grid-template-columns:repeat(3, 1fr);
@@ -449,7 +444,6 @@ foreach ($stmt as $row) {
     .listings{grid-template-columns:1fr;}
   }
 
-  /* ================= GALERIA ================= */
   .gallery{
     display:grid;
     grid-template-columns:repeat(4, 1fr);
@@ -496,7 +490,6 @@ foreach ($stmt as $row) {
     .gallery .span-row2{grid-row:span 1;}
   }
 
-  /* ================= PRECIOS / PLANES ================= */
   .plans{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -590,7 +583,6 @@ foreach ($stmt as $row) {
     .plan-card.featured{transform:none;}
   }
 
-  /* ================= RESEÑAS ================= */
   .reviews-row{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -631,7 +623,6 @@ foreach ($stmt as $row) {
     .reviews-row{grid-template-columns:1fr;}
   }
 
-  /* ================= CONTACTO ================= */
   .contact-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -714,7 +705,6 @@ foreach ($stmt as $row) {
     .form-grid-2{grid-template-columns:1fr;}
   }
 
-  /* ================= UBICACION ================= */
   .map-wrap{
     border-radius:22px;
     overflow:hidden;
@@ -735,7 +725,6 @@ foreach ($stmt as $row) {
   .map-overlay strong{font-family:var(--font-display); font-size:1.1rem;}
   .map-overlay p{font-size:0.85rem; color:var(--ink-soft); margin-top:6px; line-height:1.5;}
 
-  /* ================= FOOTER ================= */
   footer{
     background:var(--ink);
     color:var(--cream);
@@ -772,7 +761,6 @@ foreach ($stmt as $row) {
     .footer-grid{grid-template-columns:1fr 1fr;}
   }
 
-  /* ================= SELECTOR IDIOMA ================= */
   .lang-select{position:relative;display:inline-flex;align-items:center;gap:4px;cursor:pointer;font-size:0.85rem;color:var(--ink-soft);padding:4px 8px;border-radius:6px;transition:background .15s;user-select:none;}
   .lang-select:hover{background:var(--ink);background:rgba(31,61,46,0.06);}
   .lang-select .arrow{font-size:0.6rem;margin-left:2px;transition:transform .2s;}
@@ -783,7 +771,6 @@ foreach ($stmt as $row) {
   .lang-dropdown a:hover{background:rgba(31,61,46,0.06);}
   .lang-dropdown a.activo{font-weight:700;color:var(--coral);}
   @media(max-width:600px){.lang-select .label-text{display:none;}.lang-dropdown{min-width:120px;}}
-  /* ================= WHATSAPP FLOAT ================= */
   .wa-float{
     position:fixed;
     bottom:26px; right:26px;
@@ -827,7 +814,6 @@ foreach ($stmt as $row) {
 
 <main id="top">
 
-  <!-- ============ HERO ============ -->
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
@@ -860,7 +846,6 @@ foreach ($stmt as $row) {
     </div>
   </section>
 
-  <!-- ============ PROPIEDADES DESTACADAS ============ -->
   <section class="section" id="propiedades">
     <div class="wrap">
       <div class="section-head">
@@ -917,7 +902,6 @@ foreach ($stmt as $row) {
     </div>
   </section>
 
-  <!-- ============ GALERIA ============ -->
   <section class="section alt-bg" id="galeria">
     <div class="wrap">
       <div class="section-head">
@@ -951,7 +935,6 @@ foreach ($stmt as $row) {
     </div>
   </section>
 
-  <!-- ============ SOBRE NOSOTROS ============ -->
   <section class="section alt-bg" id="about">
     <div class="wrap">
       <div class="section-head">
@@ -962,7 +945,6 @@ foreach ($stmt as $row) {
     </div>
   </section>
 
-  <!-- ============ PLANES ============ -->
   <section class="section" id="planes">
     <div class="wrap">
       <div class="section-head">
@@ -1015,7 +997,6 @@ foreach ($stmt as $row) {
     </div>
   </section>
 
-  <!-- ============ RESEÑAS ============ -->
   <section class="section alt-bg" id="resenas">
     <div class="wrap">
       <div class="section-head">
@@ -1056,7 +1037,6 @@ foreach ($stmt as $row) {
     </div>
   </section>
 
-  <!-- ============ CONTACTO ============ -->
   <section class="section" id="contacto">
     <?php if (isset($_GET['ok'])): ?>
       <div class="wrap" style="margin-bottom:20px;background:#d4edda;border:1px solid #c3e6cb;color:#155724;border-radius:12px;padding:14px 20px;font-weight:600;"><?= t('form_ok') ?></div>
@@ -1127,7 +1107,6 @@ foreach ($stmt as $row) {
     </div>
   </section>
 
-  <!-- ============ UBICACION ============ -->
   <section class="section alt-bg" id="ubicacion">
     <div class="wrap">
       <div class="section-head">

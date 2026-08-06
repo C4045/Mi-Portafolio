@@ -1,7 +1,3 @@
-/* =========================================================
-   storage.js — Persistencia en LocalStorage + migración
-   Namespace: App.Storage
-   ========================================================= */
 (function (App) {
   'use strict';
 

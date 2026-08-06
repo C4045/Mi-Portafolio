@@ -67,9 +67,7 @@ class GuessGameEngine:
     def __init__(self) -> None:
         self.partida: EstadoPartida | None = None
 
-    # ------------------------------------------------------------------ #
     # Ciclo de vida de la partida
-    # ------------------------------------------------------------------ #
     def iniciar_partida(self, dificultad: Dificultad) -> EstadoPartida:
         cfg = CONFIG_DIFICULTAD[dificultad]
         numero_secreto = secrets.randbelow(cfg["rango_max"] - cfg["rango_min"] + 1) + cfg["rango_min"]
@@ -163,9 +161,7 @@ class GuessGameEngine:
         puntaje = max(base - penalizacion_intentos - penalizacion_tiempo, 50) * bonus_dificultad
         return int(round(puntaje))
 
-    # ------------------------------------------------------------------ #
     # Persistencia
-    # ------------------------------------------------------------------ #
     @staticmethod
     def _guardar_en_historial(partida: EstadoPartida, resultado: str, puntaje: int) -> None:
         try:

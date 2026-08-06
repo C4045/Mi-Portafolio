@@ -58,9 +58,7 @@ class SuitePythonPro(ctk.CTk):
 
         self.protocol("WM_DELETE_WINDOW", self._al_cerrar)
 
-    # ------------------------------------------------------------------ #
     # Layout general
-    # ------------------------------------------------------------------ #
     def _construir_layout(self) -> None:
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(0, weight=1)
@@ -128,9 +126,7 @@ class SuitePythonPro(ctk.CTk):
         self.bind("<Control-d>", lambda _e: self._alternar_tema())
         self.bind("<Escape>", lambda _e: self.mostrar_vista("inicio"))
 
-    # ------------------------------------------------------------------ #
     # Navegación
-    # ------------------------------------------------------------------ #
     def mostrar_vista(self, clave: str) -> None:
         for frame in self._frames_cache.values():
             frame.grid_forget()
@@ -208,9 +204,7 @@ class SuitePythonPro(ctk.CTk):
 
         return frame
 
-    # ------------------------------------------------------------------ #
     # Preferencias
-    # ------------------------------------------------------------------ #
     def _alternar_tema(self) -> None:
         nuevo_modo = alternar_modo_oscuro()
         notify(self, f"Modo {('oscuro' if nuevo_modo == 'dark' else 'claro')} activado.", "info")

@@ -8,7 +8,6 @@ $email = $_SESSION['cliente_email'];
 $mensaje = '';
 $error = '';
 
-// Cancelar pedido
 if (isset($_GET['cancelar'])) {
     $cid = (int)$_GET['cancelar'];
     $chk = $conn->prepare("SELECT id, estado FROM pedidos WHERE id=? AND email=?");

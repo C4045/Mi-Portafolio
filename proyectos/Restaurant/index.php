@@ -1,14 +1,12 @@
 <?php
 require_once __DIR__ . '/config/database.php';
 
-// Get settings
 $settings = [];
 $stmt = $pdo->query("SELECT clave, valor FROM restaurante_settings");
 foreach ($stmt as $row) {
     $settings[$row['clave']] = $row['valor'];
 }
 
-// Get featured dishes
 $featured = $pdo->query("
     SELECT m.*, c.nombre AS cat_nombre
     FROM menu_items m
@@ -18,7 +16,6 @@ $featured = $pdo->query("
     LIMIT 6
 ")->fetchAll();
 
-// If no featured, get any active
 if (!$featured) {
     $featured = $pdo->query("
         SELECT m.*, c.nombre AS cat_nombre
@@ -57,7 +54,6 @@ $restaurantName = htmlspecialchars($settings['restaurante_nombre'] ?? 'Eclat');
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar" role="navigation" aria-label="Main">
         <div class="navbar__container">
             <a href="index.php" class="navbar__logo" aria-label="<?php echo $restaurantName; ?> - Home">
@@ -90,7 +86,6 @@ $restaurantName = htmlspecialchars($settings['restaurante_nombre'] ?? 'Eclat');
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero" aria-label="Hero">
         <div class="hero__content">
             <div class="hero__text">
@@ -126,7 +121,6 @@ $restaurantName = htmlspecialchars($settings['restaurante_nombre'] ?? 'Eclat');
         </div>
     </section>
 
-    <!-- Featured Dishes -->
     <section class="featured" id="featured" aria-labelledby="featured-title">
         <div class="container">
             <div class="section-header">
@@ -160,7 +154,6 @@ $restaurantName = htmlspecialchars($settings['restaurante_nombre'] ?? 'Eclat');
         </div>
     </section>
 
-    <!-- Testimonials -->
     <section class="testimonials" id="testimonials" aria-labelledby="testimonials-title">
         <div class="container">
             <div class="section-header">
@@ -196,7 +189,6 @@ $restaurantName = htmlspecialchars($settings['restaurante_nombre'] ?? 'Eclat');
         </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="cta-section" aria-label="Call to action">
         <div class="container">
             <h2 class="cta-section__title">Ready to Reserve?</h2>
@@ -205,7 +197,6 @@ $restaurantName = htmlspecialchars($settings['restaurante_nombre'] ?? 'Eclat');
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
@@ -244,14 +235,12 @@ $restaurantName = htmlspecialchars($settings['restaurante_nombre'] ?? 'Eclat');
         </div>
     </footer>
 
-    <!-- Scroll to Top Button -->
     <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top" title="Scroll to top">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="18 15 12 9 6 15"></polyline>
         </svg>
     </button>
 
-    <!-- Toast Container -->
     <div id="toastContainer" class="toast-container" role="region" aria-live="polite" aria-atomic="true"></div>
 
     <script src="js/app.js"></script>
